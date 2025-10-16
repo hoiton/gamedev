@@ -5,19 +5,11 @@ extends CharacterBody2D
 @export var friction: float = 2600.0
 @export var diagonal_normalize: bool = true
 
-# Dash
-@export var dash_speed: float = 420.0
-@export var dash_time: float = 0.12
-@export var dash_cooldown: float = 0.30
+@onready var _kill_area: Area2D = $MeleeArea
+var _enemies_in_range: Array[Node] = []
 
-var _dash_left := 0.0
-var _dash_cd_left := 0.0
-var _dash_dir := Vector2.ZERO
 
 func _physics_process(delta: float) -> void:
-	# cooldowns
-	_dash_cd_left = max(_dash_cd_left - delta, 0.0)
-
 	# input vector
 	var input_vec := Vector2(
 		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
@@ -26,28 +18,18 @@ func _physics_process(delta: float) -> void:
 	if diagonal_normalize:
 		input_vec = input_vec.normalized()
 
-	# dash start
-	if Input.is_action_just_pressed("dash") and _dash_cd_left == 0.0 and _dash_left <= 0.0:
-		_dash_dir = (velocity.normalized() if velocity.length() > 1.0
-					else (input_vec.normalized() if input_vec != Vector2.ZERO else Vector2.RIGHT))
-		_dash_left = dash_time
-		_dash_cd_left = dash_cooldown + dash_time
+	var target_vel := input_vec * max_speed
+	var a := (accel if input_vec != Vector2.ZERO else friction) * delta
 
-	# dash motion overrides regular accel
-	if _dash_left > 0.0:
-		velocity = _dash_dir * dash_speed
-		_dash_left -= delta
-	else:
-		# accelerate toward target
-		var target_vel := input_vec * max_speed
-		var to_target := target_vel - velocity
-		var a := (accel if input_vec != Vector2.ZERO else friction) * delta
-
-		# move_toward for both axes
-		velocity.x = move_toward(velocity.x, target_vel.x, a)
-		velocity.y = move_toward(velocity.y, target_vel.y, a)
+	# move_toward for both axes
+	velocity.x = move_toward(velocity.x, target_vel.x, a)
+	velocity.y = move_toward(velocity.y, target_vel.y, a)
 
 	move_and_slide()
+	
+	if Input.is_action_just_pressed("kill"):
+		_try_knife_kill()
+
 
 	# Optional: flip/rotate sprite to face movement
 	if has_node("Sprite"):
@@ -67,3 +49,31 @@ func _update_anim(anim: AnimatedSprite2D, dir: Vector2) -> void:
 	else:
 		anim.play("walk_side")
 		anim.flip_h = dir.x < 0.0
+
+func _ready() -> void:
+	if is_instance_valid(_kill_area):
+		_kill_area.body_entered.connect(_on_kill_body_entered)
+		_kill_area.body_exited.connect(_on_kill_body_exited)
+
+func _on_kill_body_entered(body: Node) -> void:
+	if body.is_in_group("target"):
+		_enemies_in_range.append(body)
+
+func _on_kill_body_exited(body: Node) -> void:
+	if body.is_in_group("target"):
+		_enemies_in_range.erase(body)
+
+func _try_knife_kill() -> void:
+	if _enemies_in_range.is_empty():
+		return
+	var closest: Node = null
+	var min_d := INF
+	for e in _enemies_in_range:
+		if not is_instance_valid(e):
+			continue
+		var d := global_position.distance_to(e.global_position)
+		if d < min_d:
+			min_d = d
+			closest = e
+	if closest and closest.has_method("die"):
+		closest.die()

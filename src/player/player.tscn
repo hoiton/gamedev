@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bd0i0dpcrfguu"]
+[gd_scene load_steps=6 format=3 uid="uid://bd0i0dpcrfguu"]
 
 [ext_resource type="Script" uid="uid://ddk62bqhdvlnl" path="res://player/player.gd" id="1_rkbax"]
 [ext_resource type="Texture2D" uid="uid://d21d3pfeyn6fy" path="res://art/human_f.png" id="2_g1dw6"]
@@ -14,10 +14,25 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rkbax"]
+size = Vector2(22, 30)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rkbax"]
+radius = 30.0
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_rkbax")
+metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_yw30f")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_rkbax")
+
+[node name="MeleeArea" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeArea"]
+shape = SubResource("CircleShape2D_rkbax")

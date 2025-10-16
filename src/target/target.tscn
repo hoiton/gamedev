@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://drm6osd6bgbjr"]
+
+[ext_resource type="Script" uid="uid://c6oe8wydtrt37" path="res://target/target.gd" id="1_kswpl"]
+[ext_resource type="Texture2D" uid="uid://gwpa3iohuv5n" path="res://art/Swordsman_lvl1_Idle_without_shadow.png" id="2_sp8cc"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_itqbd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_sp8cc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kswpl"]
+size = Vector2(18, 24)
+
+[node name="Target" type="CharacterBody2D" groups=["target"]]
+collision_layer = 3
+script = ExtResource("1_kswpl")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_itqbd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_kswpl")
