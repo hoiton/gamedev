@@ -47,6 +47,7 @@ position = Vector2(130, 113)
 position = Vector2(628, 191)
 
 [node name="Guard" parent="." instance=ExtResource("4_5mrsh")]
+position = Vector2(600, 143)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_5mrsh")
