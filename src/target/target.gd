@@ -112,8 +112,8 @@ func die() -> void:
 		var anim := $AnimatedSprite2D
 		if "die" in anim.sprite_frames.get_animation_names():
 			anim.play("die")
-			anim.animation_finished.connect(func():
-				queue_free()
-			)
+			#anim.animation_finished.connect(func():
+				#queue_free()
+			#)
 			return
 	queue_free()

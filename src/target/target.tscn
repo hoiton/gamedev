@@ -1,7 +1,36 @@
-[gd_scene load_steps=5 format=3 uid="uid://drm6osd6bgbjr"]
+[gd_scene load_steps=13 format=3 uid="uid://drm6osd6bgbjr"]
 
 [ext_resource type="Script" uid="uid://c6oe8wydtrt37" path="res://target/target.gd" id="1_kswpl"]
 [ext_resource type="Texture2D" uid="uid://gwpa3iohuv5n" path="res://art/Swordsman_lvl1_Idle_without_shadow.png" id="2_sp8cc"]
+[ext_resource type="Texture2D" uid="uid://dchfr0datv4ok" path="res://art/Swordsman_lvl3_Death_without_shadow.png" id="3_sp8cc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_itqbd"]
+atlas = ExtResource("3_sp8cc")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6nu6o"]
+atlas = ExtResource("3_sp8cc")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_85njf"]
+atlas = ExtResource("3_sp8cc")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q5yam"]
+atlas = ExtResource("3_sp8cc")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5m6mw"]
+atlas = ExtResource("3_sp8cc")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n0ue5"]
+atlas = ExtResource("3_sp8cc")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fash6"]
+atlas = ExtResource("3_sp8cc")
+region = Rect2(384, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_itqbd"]
 animations = [{
@@ -12,10 +41,36 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_itqbd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6nu6o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_85njf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q5yam")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5m6mw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n0ue5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fash6")
+}],
+"loop": false,
+"name": &"die",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kswpl"]
-size = Vector2(18, 24)
+size = Vector2(15, 9)
 
 [node name="Target" type="CharacterBody2D" groups=["target"]]
 collision_layer = 3
@@ -25,7 +80,8 @@ metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_itqbd")
+animation = &"die"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 0)
+position = Vector2(-0.5, 7.5)
 shape = SubResource("RectangleShape2D_kswpl")

@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=4 uid="uid://copnps85t0rvg"]
+[gd_scene load_steps=9 format=4 uid="uid://copnps85t0rvg"]
 
 [ext_resource type="Texture2D" uid="uid://xg52mjbdsg86" path="res://art/interior_wall_1.png" id="1_hjsbj"]
 [ext_resource type="Texture2D" uid="uid://0gi374orp4q6" path="res://art/interior_floor_1_32px.png" id="2_cwqvt"]
 [ext_resource type="PackedScene" uid="uid://bd0i0dpcrfguu" path="res://player/player.tscn" id="3_cwqvt"]
+[ext_resource type="PackedScene" uid="uid://drm6osd6bgbjr" path="res://target/target.tscn" id="4_5mrsh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cwqvt"]
 texture = ExtResource("2_cwqvt")
@@ -36,3 +37,8 @@ tile_set = SubResource("TileSet_safpt")
 
 [node name="Player" parent="." instance=ExtResource("3_cwqvt")]
 position = Vector2(130, 113)
+
+[node name="Target" parent="." instance=ExtResource("4_5mrsh")]
+position = Vector2(628, 191)
+
+[node name="Guard" parent="." instance=ExtResource("4_5mrsh")]
