@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://copnps85t0rvg"]
+[gd_scene load_steps=10 format=4 uid="uid://copnps85t0rvg"]
 
 [ext_resource type="Texture2D" uid="uid://xg52mjbdsg86" path="res://art/interior_wall_1.png" id="1_hjsbj"]
 [ext_resource type="Texture2D" uid="uid://0gi374orp4q6" path="res://art/interior_floor_1_32px.png" id="2_cwqvt"]
@@ -25,6 +25,11 @@ tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 sources/3 = SubResource("TileSetAtlasSource_5mrsh")
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_5mrsh"]
+vertices = PackedVector2Array(393.42188, 242, 404.42188, 437.89063, 107.078125, 435.09375, 110, 102.78125, 694.03125, 438, 457.53125, 438, 467.52344, 242, 694.96875, 73.03125, 108.53906, 74.96094)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7), PackedInt32Array(8, 7, 6, 0, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(98, 65, 100, 103, 97, 445, 415, 448, 404, 252, 457, 252, 447, 448, 704, 448, 705, 63)])
+
 [node name="Level" type="Node2D"]
 
 [node name="Floor" type="TileMapLayer" parent="."]
@@ -42,3 +47,6 @@ position = Vector2(130, 113)
 position = Vector2(628, 191)
 
 [node name="Guard" parent="." instance=ExtResource("4_5mrsh")]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_5mrsh")
