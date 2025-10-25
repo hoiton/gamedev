@@ -40,10 +40,8 @@ func _physics_process(delta: float) -> void:
 
 
 	# Optional: flip/rotate sprite to face movement
-	if has_node("Sprite"):
-		var s = get_node("Sprite")
-		if s is AnimatedSprite2D:
-			_update_anim(s, input_vec)
+	
+	_update_anim(velocity)
 			
 	if _lure_cd_timer > 0.0:
 		_lure_cd_timer = max(0.0, _lure_cd_timer - delta)
@@ -58,18 +56,22 @@ func _physics_process(delta: float) -> void:
 		var land := _compute_coin_target(mouse_pos)
 		_throw_coin(land)
 
-func _update_anim(anim: AnimatedSprite2D, dir: Vector2) -> void:
+func _update_anim(dir: Vector2) -> void:
 	# Expect animations named: idle, walk_up, walk_down, walk_side
-	if dir == Vector2.ZERO and velocity.length() < 5.0:
-		anim.play("idle")
+	if dir == Vector2.ZERO and velocity.length() < 1.0:
+		$AnimatedSprite2D.animation = "idle"
 		return
+	else:
+		$AnimatedSprite2D.play()
 
 	# choose dominant axis for 4-dir; swap for 8-dir as you like
 	if abs(dir.y) >= abs(dir.x):
-		anim.play("walk_down" if dir.y >= 0.0 else "walk_up")
+		if dir.y >= 0:
+			$AnimatedSprite2D.animation = "walk_down"
+		else:
+			$AnimatedSprite2D.animation = "walk_up"
 	else:
-		anim.play("walk_side")
-		anim.flip_h = dir.x < 0.0
+		$AnimatedSprite2D.animation = "walk_down"
 
 func _ready() -> void:
 	if is_instance_valid(_kill_area):
