@@ -96,6 +96,7 @@ func _physics_process(delta: float) -> void:
 			if _agent.is_target_reached() or global_position.distance_to(_search_pos) <= search_arrive_distance or _search_timer <= 0.0:
 				velocity = Vector2.ZERO
 				_state = "idle"
+				GameManager.player_died("Dead Body found by Guard")
 
 	move_and_slide()
 

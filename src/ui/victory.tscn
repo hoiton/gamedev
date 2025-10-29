@@ -1,0 +1,50 @@
+[gd_scene load_steps=2 format=3 uid="uid://btk2g1bgde7os"]
+
+[ext_resource type="Script" uid="uid://ef2j6h4y3dr2" path="res://ui/victory.gd" id="1_h0orr"]
+
+[node name="Victory" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_h0orr")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -155.5
+offset_top = -64.0
+offset_right = 155.5
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Level Complete"
+
+[node name="Retry" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Play Again"
+
+[node name="Menu" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Main Menu"
+
+[connection signal="pressed" from="Panel/VBoxContainer/Retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Menu" to="." method="_on_menu_pressed"]

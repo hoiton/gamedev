@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="gamedev"
-run/main_scene="uid://bd0i0dpcrfguu"
+run/main_scene="uid://sa2uew5hbybr"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameManager="*res://singletons/game_manager.gd"
 
 [display]
 
