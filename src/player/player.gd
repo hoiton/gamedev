@@ -3,6 +3,8 @@ extends CharacterBody2D
 const LureScene := preload("res://environment/lure.tscn")
 const CoinThrowScene := preload("res://environment/coin_throw.tscn")
 
+var _last_facing: String = "down"  # "up" | "down" | "left" | "right"
+
 @export var coin_max_range: float = 300.0
 @export var coin_collision_mask: int = 1  # set to the same as your walls/level
 @export var lure_throw_speed: float = 420.0
@@ -57,21 +59,36 @@ func _physics_process(delta: float) -> void:
 		_throw_coin(land)
 
 func _update_anim(dir: Vector2) -> void:
-	# Expect animations named: idle, walk_up, walk_down, walk_side
-	if dir == Vector2.ZERO and velocity.length() < 1.0:
-		$AnimatedSprite2D.animation = "idle"
-		return
-	else:
-		$AnimatedSprite2D.play()
 
-	# choose dominant axis for 4-dir; swap for 8-dir as you like
-	if abs(dir.y) >= abs(dir.x):
-		if dir.y >= 0:
-			$AnimatedSprite2D.animation = "walk_down"
+	var sprite := $AnimatedSprite2D
+
+	# IDLE: no input or barely moving
+	if dir == Vector2.ZERO or velocity.length() < 1.0:
+		match _last_facing:
+			"up":    sprite.animation = "idle_up"
+			"down":  sprite.animation = "idle_down"
+			"left":  sprite.animation = "idle_left"
+			"right": sprite.animation = "idle_right"
+		
+		sprite.play()
+		return
+
+	if absf(dir.y) >= absf(dir.x):
+		if dir.y > 0.0:
+			sprite.animation = "walk_down"
+			_last_facing = "down"
 		else:
-			$AnimatedSprite2D.animation = "walk_up"
+			sprite.animation = "walk_up"
+			_last_facing = "up"
 	else:
-		$AnimatedSprite2D.animation = "walk_down"
+		if dir.x > 0.0:
+			sprite.animation = "walk_right"
+			_last_facing = "right"
+		else:
+			sprite.animation = "walk_left"
+			_last_facing = "left"
+
+	sprite.play()
 
 func _ready() -> void:
 	if is_instance_valid(_kill_area):
