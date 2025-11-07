@@ -115,7 +115,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rkbax"]
-size = Vector2(22, 30)
+size = Vector2(22, 6)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rkbax"]
 radius = 30.0
@@ -128,8 +128,8 @@ metadata/_edit_group_ = true
 sprite_frames = SubResource("SpriteFrames_yw30f")
 animation = &"idle_up"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1)
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 13)
 shape = SubResource("RectangleShape2D_rkbax")
 
 [node name="MeleeArea" type="Area2D" parent="."]
