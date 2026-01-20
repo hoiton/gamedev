@@ -1,6 +1,8 @@
 extends Node
 
-@export var first_level_path: String = "res://levels/level.tscn"
+@export var first_level_path: String = "res://levels/level1.tscn"
+@export var second_level_path: String = "res://levels/level2.tscn"
+@export var third_level_path: String = "res://levels/level3.tscn"
 var last_level_completed := false
 var last_death_reason := ""
 

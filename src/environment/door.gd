@@ -34,12 +34,12 @@ func _ready() -> void:
 
 
 func _on_enter(body: Node) -> void:
-	if body.is_in_group("player"):
+	if body.is_in_group("player") or body.is_in_group("target"):
 		_open()
 
 
 func _on_exit(body: Node) -> void:
-	if body.is_in_group("player"):
+	if body.is_in_group("player") or body.is_in_group("target"):
 		_close()
 
 
