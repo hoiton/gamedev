@@ -120,7 +120,7 @@ size = Vector2(22, 6)
 [sub_resource type="CircleShape2D" id="CircleShape2D_rkbax"]
 radius = 30.0
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_rkbax")
 metadata/_edit_group_ = true
 
