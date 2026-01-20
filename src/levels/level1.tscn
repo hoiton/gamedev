@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://d0wivd60frsle"]
+[gd_scene load_steps=9 format=4 uid="uid://d0wivd60frsle"]
 
 [ext_resource type="TileSet" uid="uid://26hht4u25cum" path="res://art/building/tilemap.tres" id="1_kvvkh"]
 [ext_resource type="PackedScene" uid="uid://bd0i0dpcrfguu" path="res://player/player.tscn" id="2_aaqj5"]
@@ -10,6 +10,18 @@
 vertices = PackedVector2Array(711.40625, 202, 713.3828, 236.39063, 678, 234.42969, -3.1328125, 108, -4.8671875, -28.148438, 295.89063, -32.84375, 294.8672, 66.36719, 186.71094, 108, 411, 235.85156, 345.10156, 236.84375, 345.89844, 160, 454.20313, 160, 455.78906, 238, 422.67188, 238, 411, 287, 424.3203, 288.96094, 188.29688, 162.04688, 198, 161.20313, 297, 159.20313, 297, 268.1172, 134.32031, 270.1328, 122, 268, 508.07813, 108.11719, 345.29688, 106.11719, 346.29688, 73.34375, 347.90625, 55.117188, 967.0781, 129, 968.9219, 364, 762, 364, 762, 202, 903.3203, 129, 678, 286.70313, 711.03125, 287.70313, 711.96094, 524.96875, 346.0703, 524.02344, 666, 290.04688, -4, 268, -4, 161.04688, 762.9219, -31.953125, 967.9219, -31.039063, 967.0781, 78, 901.6719, 78, 892.3203, 77.15625, 666, 237.11719, 348.8828, -29.023438, 712, -29.96875, 712, 193.04688, 137.64063, 319.9375, 296.92188, 320.9297, 295.0703, 561.02344, -35.070313, 561.96875, -36.921875, 320.9297, 122, 319.9375, 198, 110.10156, 295.2578, 109.09375, 296.28125, 71.671875, 507.0703, 235.11719, 762.0703, 75.14844, 890.6797, 128, 763.8594, 183.32813, 347.92188, 287, 764.8281, 128)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(3, 4, 5, 6, 7), PackedInt32Array(8, 9, 10, 11), PackedInt32Array(8, 11, 12, 13), PackedInt32Array(14, 8, 13, 15), PackedInt32Array(16, 17, 18, 19, 20, 21), PackedInt32Array(22, 23, 24, 25), PackedInt32Array(26, 27, 28, 29, 30), PackedInt32Array(31, 32, 33, 34, 35), PackedInt32Array(36, 37, 16, 21), PackedInt32Array(38, 39, 40, 41, 42), PackedInt32Array(43, 22, 44, 45, 46, 0, 2), PackedInt32Array(47, 48, 49, 50, 51, 52), PackedInt32Array(20, 47, 52, 21), PackedInt32Array(17, 16, 7, 53), PackedInt32Array(54, 53, 7, 6, 55), PackedInt32Array(55, 6, 25, 24), PackedInt32Array(43, 56, 22), PackedInt32Array(42, 57, 38), PackedInt32Array(58, 42, 41, 30), PackedInt32Array(58, 30, 29, 59), PackedInt32Array(34, 60, 14, 15), PackedInt32Array(59, 61, 58), PackedInt32Array(46, 59, 29, 0), PackedInt32Array(22, 25, 44), PackedInt32Array(43, 2, 31, 35), PackedInt32Array(35, 34, 15)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-47, 311, -45, 572, 305, 571, 307, 311, 147, 310, 145, 280, 307, 278, 307, 149, 208, 151, 208, 120, 305, 119, 306, 82, 336, 83, 335, 116, 498, 118, 497, 245, 656, 247, 656, 280, 434, 279, 433, 248, 466, 248, 464, 150, 336, 150, 335, 247, 401, 246, 401, 277, 338, 277, 336, 534, 722, 535, 721, 278, 688, 277, 688, 245, 724, 247, 722, 212, 752, 212, 752, 374, 979, 374, 977, 119, 913, 119, 912, 88, 977, 88, 978, -41, 753, -42, 752, 85, 882, 87, 881, 118, 755, 118, 754, 175, 722, 181, 722, -40, 339, -39, 338, 47, 305, 54, 306, -43, -15, -38, -13, 118, 177, 118, 178, 152, -14, 151, -14, 278, 112, 278, 112, 310)])
+
+[sub_resource type="Curve2D" id="Curve2D_61w3m"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 298, 431, 0, 0, 0, 0, 305, 610, 0, 0, 0, 0, 30, 615, 0, 0, 0, 0, 30, 423, 0, 0, 0, 0, 297, 431)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_pdpul"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 2, 3, 0, 0, 0, 0, -33, 61, 0, 0, 0, 0, -27, 142, 0, 0, 0, 0, 225, 130, -2, 111, 2, -111, 226, 36, 0, 0, 0, 0, -74, -107, 0, 0, 0, 0, -202, -104, 0, 0, 0, 0, -251, -86, 0, 0, 0, 0, -253, 7, 0, 0, 0, 0, -445, -9, 0, 0, 0, 0, -255, 1, 0, 0, 0, 0, -248, -78, 0, 0, 0, 0, -171, -111, 0, 0, 0, 0, -44, -110, 0, 0, 0, 0, 177, -93, 0, 0, 0, 0, 238, 21, 0, 0, 0, 0, 333, 25, 0, 0, 0, 0, 518, 184, 0, 0, 0, 0, 328, 21, 0, 0, 0, 0, 232, 21, 0, 0, 0, 0, 225, 137, 0, 0, 0, 0, -31, 145, 0, 0, 0, 0, -29, 59, 0, 0, 0, 0, 2, 3)
+}
+point_count = 24
 
 [node name="Level3" type="Node2D"]
 
@@ -30,11 +42,20 @@ position = Vector2(183, 448)
 
 [node name="Targets" type="Node" parent="."]
 
-[node name="Target1" parent="Targets" instance=ExtResource("4_ua5ty")]
+[node name="Target1" parent="Targets" node_paths=PackedStringArray("patrol_path") instance=ExtResource("4_ua5ty")]
 position = Vector2(293, 427)
+patrol_path = NodePath("Patrol Path")
 
-[node name="Target2" parent="Targets" instance=ExtResource("4_ua5ty")]
-position = Vector2(314, 327)
+[node name="Patrol Path" type="Path2D" parent="Targets/Target1"]
+position = Vector2(-293, -427)
+curve = SubResource("Curve2D_61w3m")
+
+[node name="Target2" parent="Targets" node_paths=PackedStringArray("patrol_path") instance=ExtResource("4_ua5ty")]
+position = Vector2(490, 245)
+patrol_path = NodePath("Patrol Path")
+
+[node name="Patrol Path" type="Path2D" parent="Targets/Target2"]
+curve = SubResource("Curve2D_pdpul")
 
 [node name="Target3" parent="Targets" instance=ExtResource("4_ua5ty")]
 position = Vector2(216, 329)

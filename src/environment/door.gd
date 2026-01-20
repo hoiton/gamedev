@@ -52,7 +52,7 @@ func _cache_cells_inside_area() -> void:
 		return
 
 	var local_min: Vector2 = door_layer.to_local(world_rect.position)
-	var local_max: Vector2 = door_layer.to_local(world_rect.position + world_rect.size)
+	var local_max: Vector2 = door_layer.to_local(world_rect.position + world_rect.size * 0.75)
 
 	var cell_min: Vector2i = door_layer.local_to_map(Vector2(min(local_min.x, local_max.x), min(local_min.y, local_max.y)))
 	var cell_max: Vector2i = door_layer.local_to_map(Vector2(max(local_min.x, local_max.x), max(local_min.y, local_max.y)))
