@@ -1,10 +1,29 @@
 extends CharacterBody2D
 
-@export var patrol_speed := 60.0
+@export var patrol_speed := 40.0
 @export var chase_speed := 120.0
 @export var lure_speed := 80.0
 @export var lure_check_interval := 0.25
 @export var lure_accept_distance := 12.0 # distance to "inspect" lure
+
+@export var patrol_path: Path2D
+@export var patrol_loop := true
+@export var patrol_point_spacing := 8.0 # pixels between sampled points
+@export var patrol_wait := 0.0
+
+var _patrol_points: PackedVector2Array = []
+var _patrol_i := 0
+var _patrol_wait_t := 0.0
+
+@export var body_detect_radius := 180.0
+@export var body_detect_interval := 0.25
+@export var body_confirm_distance := 14.0 # how close to "confirm" the body
+
+var _body_scan_timer := 0.0
+var _known_bodies := {} # instance_id -> true (avoid re-reacting)
+var _current_body: Node2D = null
+
+
 
 @onready var _agent: NavigationAgent2D = $NavigationAgent2D
 
@@ -34,6 +53,12 @@ func _ready() -> void:
 	_agent.target_desired_distance = 8.0
 	_agent.avoidance_enabled = false
 	_agent.max_speed = max(chase_speed, lure_speed)
+	
+	_build_patrol_points()
+	if _patrol_points.size() > 0:
+		_state = "patrol"
+		_set_next_patrol_target()
+
 
 # Helper: speed based on state
 func _current_speed() -> float:
@@ -61,6 +86,12 @@ func _physics_process(delta: float) -> void:
 	if _lure_check_timer <= 0.0:
 		_lure_check_timer = lure_check_interval
 		_scan_for_lures()
+		
+	# periodic dead-body scanning
+	_body_scan_timer -= delta
+	if _body_scan_timer <= 0.0:
+		_body_scan_timer = body_detect_interval
+		_scan_for_dead_bodies()
 
 	match _state:
 		"idle":
@@ -68,8 +99,14 @@ func _physics_process(delta: float) -> void:
 			_agent.set_target_position(global_position) # clear path
 
 		"patrol":
-			# set next waypoint elsewhere via _agent.set_target_position(...)
-			velocity = _steer_along_path(_current_speed())
+			if _patrol_wait_t > 0.0:
+				_patrol_wait_t -= delta
+				velocity = Vector2.ZERO
+			else:
+				velocity = _steer_along_path(_current_speed())
+				if _agent.is_target_reached():
+					_patrol_wait_t = patrol_wait
+					_advance_patrol_point()
 
 		"chase":
 			if is_instance_valid(_player):
@@ -88,15 +125,28 @@ func _physics_process(delta: float) -> void:
 			else:
 				_state = _previous_state
 
-		# --- CHANGED: real search movement via nav + timer ---
 		"search":
 			_agent.set_target_position(_search_pos)
 			velocity = _steer_along_path(lure_speed)
 			_search_timer -= delta
-			if _agent.is_target_reached() or global_position.distance_to(_search_pos) <= search_arrive_distance or _search_timer <= 0.0:
+
+			var reached := _agent.is_target_reached() or global_position.distance_to(_search_pos) <= search_arrive_distance
+
+			# If we are searching for a specific body, confirm when close enough
+			if is_instance_valid(_current_body):
+				_search_pos = _current_body.global_position # track if it moves
+				if global_position.distance_to(_current_body.global_position) <= body_confirm_distance:
+					_known_bodies[_current_body.get_instance_id()] = true
+					_current_body = null
+					velocity = Vector2.ZERO
+					_state = "idle"
+					GameManager.player_died("Dead Body found by Guard")
+					return
+
+			if reached or _search_timer <= 0.0:
+				_current_body = null
 				velocity = Vector2.ZERO
 				_state = "idle"
-				GameManager.player_died("Dead Body found by Guard")
 
 	move_and_slide()
 
@@ -194,14 +244,104 @@ func _on_teammate_down_ping(at_pos: Vector2) -> void:
 func die() -> void:
 	if not _alive:
 		return
-	# notify before disabling physics / freeing
+
 	_broadcast_death_event()
 
 	_alive = false
+	add_to_group("dead_body")
+
+	# stop AI movement + physics
 	set_physics_process(false)
+	velocity = Vector2.ZERO
+
+	# disable collisions so it doesn't block nav / player
+	set_collision_layer(0)
+	set_collision_mask(0)
+
+	if has_node("NavigationAgent2D"):
+		$NavigationAgent2D.set_target_position(global_position)
+
+	# Optional: play animation, then just "stay"
 	if has_node("AnimatedSprite2D"):
 		var anim := $AnimatedSprite2D
 		if "die" in anim.sprite_frames.get_animation_names():
 			anim.play("die")
-			return
-	queue_free()
+
+	
+func _build_patrol_points() -> void:
+	_patrol_points.clear()
+	if patrol_path == null or patrol_path.curve == null:
+		return
+
+	var c := patrol_path.curve
+	var len := c.get_baked_length()
+	if len <= 1.0:
+		return
+
+	var d := 0.0
+	while d <= len:
+		var p_local := c.sample_baked(d)                 # local to Path2D
+		var p_world := patrol_path.to_global(p_local)    # convert to world
+		_patrol_points.append(p_world)
+		d += patrol_point_spacing
+
+func _set_next_patrol_target() -> void:
+	if _patrol_points.size() == 0:
+		_state = "idle"
+		return
+	_agent.set_target_position(_patrol_points[_patrol_i])
+
+func _advance_patrol_point() -> void:
+	if _patrol_points.size() == 0:
+		return
+
+	_patrol_i += 1
+	if _patrol_i >= _patrol_points.size():
+		if patrol_loop:
+			_patrol_i = 0
+		else:
+			_patrol_i = _patrol_points.size() - 1
+
+	_set_next_patrol_target()
+
+func _scan_for_dead_bodies() -> void:
+	if not _alive:
+		return
+	# Don't interrupt chase/lured unless you want that behavior
+	if _state == "chase" or _state == "lured":
+		return
+
+	var best: Node2D = null
+	var best_d := INF
+
+	for b in get_tree().get_nodes_in_group("dead_body"):
+		if not is_instance_valid(b):
+			continue
+		if not (b is Node2D):
+			continue
+
+		var id := b.get_instance_id()
+		if _known_bodies.has(id):
+			continue
+
+		var d := global_position.distance_to(b.global_position)
+		if d > body_detect_radius:
+			continue
+
+		if death_alert_requires_los and not _has_line_of_sight(global_position, b.global_position):
+			continue
+
+		if d < best_d:
+			best = b
+			best_d = d
+
+	if best:
+		_on_dead_body_spotted(best)
+
+
+func _on_dead_body_spotted(body: Node2D) -> void:
+	_current_lure = null
+	_current_body = body
+	_search_pos = body.global_position
+	_search_timer = search_time
+	_state = "search"

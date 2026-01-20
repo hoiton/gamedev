@@ -22,7 +22,6 @@ GameManager="*res://singletons/game_manager.gd"
 [display]
 
 window/stretch/mode="viewport"
-window/stretch/scale=1.35
 window/vsync/vsync_mode=0
 
 [dotnet]
