@@ -1,15 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://btk2g1bgde7os"]
+[gd_scene load_steps=2 format=3 uid="uid://b8htpvvd6xwds"]
 
-[ext_resource type="Script" uid="uid://ef2j6h4y3dr2" path="res://ui/victory.gd" id="1_h0orr"]
+[ext_resource type="Script" uid="uid://u4k7i0sl5ct1" path="res://ui/level_complete.gd" id="1_uwrpb"]
 
-[node name="Victory" type="Control"]
+[node name="LevelComplete" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_h0orr")
+script = ExtResource("1_uwrpb")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -36,10 +36,15 @@ grow_vertical = 2
 [node name="Title" type="Label" parent="Panel/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 42
-text = "Victory 🥳"
+text = "Level Complete"
+
+[node name="NextLevel" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Next Level"
 
 [node name="Menu" type="Button" parent="Panel/VBoxContainer"]
 layout_mode = 2
 text = "Main Menu"
 
+[connection signal="pressed" from="Panel/VBoxContainer/NextLevel" to="." method="_on_next_level_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/Menu" to="." method="_on_menu_pressed"]
