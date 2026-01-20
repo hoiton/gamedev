@@ -15,7 +15,3 @@ tile_set = ExtResource("1_p1d34")
 
 [node name="Player" parent="." instance=ExtResource("2_qyb5k")]
 position = Vector2(263, 83)
-
-[node name="Wall_front" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAAMAAMAAAABAAEAAAA=")
-tile_set = ExtResource("1_p1d34")
