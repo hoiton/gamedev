@@ -14,13 +14,9 @@ static func build(font_path: String = "res://ui/fonts/Inter.ttf") -> Theme:
 
 	# ===== Panel (menu card) =====
 	var panel := StyleBoxFlat.new()
-	panel.bg_color = Color(0.10, 0.12, 0.16, 0.92) # dark translucent
-	panel.corner_radius_top_left = 16
-	panel.corner_radius_top_right = 16
-	panel.corner_radius_bottom_left = 16
-	panel.corner_radius_bottom_right = 16
+	panel.bg_color = Color(0.10, 0.12, 0.16, 0.8) # dark translucent
 	panel.shadow_size = 12
-	panel.shadow_color = Color(0, 0, 0, 0.35)
+	panel.shadow_color = Color(0, 0, 0, 0.3)
 	panel.border_width_top = 1
 	panel.border_width_right = 1
 	panel.border_width_bottom = 1
