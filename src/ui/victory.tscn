@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://btk2g1bgde7os"]
+[gd_scene load_steps=3 format=3 uid="uid://btk2g1bgde7os"]
 
 [ext_resource type="Script" uid="uid://ef2j6h4y3dr2" path="res://ui/victory.gd" id="1_h0orr"]
+[ext_resource type="AudioStream" uid="uid://cl60g4tcl3xil" path="res://ui/voice_lines/elevenlabs_good_job.mp3" id="2_uhicc"]
 
 [node name="Victory" type="Control"]
 layout_mode = 3
@@ -41,5 +42,8 @@ text = "Victory 🥳"
 [node name="Menu" type="Button" parent="Panel/VBoxContainer"]
 layout_mode = 2
 text = "Main Menu"
+
+[node name="GoodJob" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_uhicc")
 
 [connection signal="pressed" from="Panel/VBoxContainer/Menu" to="." method="_on_menu_pressed"]
