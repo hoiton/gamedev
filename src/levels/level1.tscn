@@ -61,6 +61,7 @@ curve = SubResource("Curve2D_pdpul")
 
 [node name="Target3" parent="Targets" instance=ExtResource("4_ua5ty")]
 position = Vector2(216, 329)
+is_real_target = true
 
 [node name="Wall_front" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAAYAAgAAAACAAQAAAALAAQAAAACAAQAAAA=")

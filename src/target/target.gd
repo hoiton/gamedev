@@ -19,6 +19,8 @@ var _patrol_wait_t := 0.0
 @export var body_detect_interval := 0.25
 @export var body_confirm_distance := 14.0 # how close to "confirm" the body
 
+@export var is_real_target := false
+
 var _body_scan_timer := 0.0
 var _known_bodies := {} # instance_id -> true (avoid re-reacting)
 var _current_body: Node2D = null
@@ -48,6 +50,9 @@ var _search_timer := 0.0
 
 func _ready() -> void:
 	add_to_group("target")
+	if is_real_target:
+		add_to_group("required_target")
+		set_highlight(true)
 
 	_agent.path_desired_distance = 6.0
 	_agent.target_desired_distance = 8.0
@@ -249,7 +254,11 @@ func die() -> void:
 
 	_alive = false
 	remove_from_group("target")
+	remove_from_group("required_target")
 	add_to_group("dead_body")
+
+	if has_node("KillSound"):
+		$KillSound.play()
 
 	# stop AI movement + physics
 	set_physics_process(false)
@@ -304,6 +313,14 @@ func _advance_patrol_point() -> void:
 			_patrol_i = _patrol_points.size() - 1
 
 	_set_next_patrol_target()
+
+func set_highlight(on: bool) -> void:
+	if has_node("AnimatedSprite2D"):
+		$AnimatedSprite2D.modulate = (
+			Color(1, 1, 1, 1)
+			if not on
+			else Color(1.3, 0.7, 0.8, 1)
+		)
 
 func _scan_for_dead_bodies() -> void:
 	if not _alive:

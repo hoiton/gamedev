@@ -1,0 +1,41 @@
+[gd_scene load_steps=9 format=3 uid="uid://wb30h2chww3d"]
+
+[ext_resource type="Script" uid="uid://dp4xfm382x6fh" path="res://ui/intro.gd" id="1_m6gq7"]
+[ext_resource type="AudioStream" uid="uid://ca0evfywt0lvk" path="res://ui/voice_lines/elevenlabs_good_morning.mp3" id="2_3tp7b"]
+[ext_resource type="AudioStream" uid="uid://uk3740aymwn6" path="res://ui/voice_lines/elevenlabs_intro_2.mp3" id="3_hivng"]
+[ext_resource type="AudioStream" uid="uid://cq6540nrb0ls2" path="res://ui/voice_lines/elevenlabs_intro_3.mp3" id="4_2uxm1"]
+[ext_resource type="AudioStream" uid="uid://otlrnfkn6nv6" path="res://ui/voice_lines/elevenlabs_intro_4.mp3" id="5_ajfn2"]
+[ext_resource type="AudioStream" uid="uid://c5sex8mobnnsi" path="res://ui/voice_lines/elevenlabs_intro_5.mp3" id="6_fgx25"]
+[ext_resource type="AudioStream" uid="uid://cl1dnhve2ote1" path="res://ui/voice_lines/elevenlabs_intro_6.mp3" id="7_qsbtp"]
+[ext_resource type="AudioStream" uid="uid://b3nmvenu2r5d1" path="res://ui/voice_lines/elevenlabs_intro_7.mp3" id="8_u73pd"]
+
+[node name="Intro" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_m6gq7")
+voice_lines = Array[AudioStream]([ExtResource("2_3tp7b"), ExtResource("3_hivng"), ExtResource("4_2uxm1"), ExtResource("5_ajfn2"), ExtResource("6_fgx25"), ExtResource("7_qsbtp"), ExtResource("8_u73pd")])
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.11119685, 0.11119684, 0.11119684, 1)
+
+[node name="LineLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Voice" type="AudioStreamPlayer2D" parent="."]

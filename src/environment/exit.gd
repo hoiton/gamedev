@@ -9,4 +9,4 @@ func _on_body_entered(body: Node) -> void:
 
 
 func _all_enemies_dead() -> bool:
-	return get_tree().get_nodes_in_group("target").is_empty()
+	return get_tree().get_nodes_in_group("required_target").is_empty()
