@@ -15,6 +15,11 @@ var _lure_cd_timer := 0.0
 @export var friction: float = 2600.0
 @export var diagonal_normalize: bool = true
 
+@export var footstep_interval := 0.25 # time between steps at full speed
+@export var footstep_min_speed := 20.0
+
+var _footstep_timer := 0.0
+
 @onready var _kill_area: Area2D = $MeleeArea
 var _enemies_in_range: Array[Node] = []
 
@@ -40,11 +45,10 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("kill"):
 		_try_knife_kill()
 
-
-	# Optional: flip/rotate sprite to face movement
-	
 	_update_anim(velocity)
-			
+
+	_update_footsteps(delta)
+
 	if _lure_cd_timer > 0.0:
 		_lure_cd_timer = max(0.0, _lure_cd_timer - delta)
 
@@ -164,3 +168,27 @@ func _throw_coin(target_pos: Vector2) -> void:
 	var coin := CoinThrowScene.instantiate()
 	get_tree().current_scene.add_child(coin)  # add to root, not under Player
 	coin.launch(global_position, target_pos)
+
+var _was_moving := false
+
+func _update_footsteps(delta: float) -> void:
+	var speed := velocity.length()
+	var moving := speed >= footstep_min_speed
+
+	if not moving:
+		_was_moving = false
+		_footstep_timer = 0.0
+		return
+
+	if not _was_moving:
+		$Footsteps.play()
+		var speed_factor_start: float = clampf(1.0, 0.4, 1.0) # treat start as full cadence
+		_footstep_timer = footstep_interval / speed_factor_start
+		_was_moving = true
+		return
+
+	_footstep_timer -= delta
+	if _footstep_timer <= 0.0:
+		$Footsteps.play()
+		var speed_factor: float = clampf(speed / max_speed, 0.4, 1.0)
+		_footstep_timer = footstep_interval / speed_factor

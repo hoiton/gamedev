@@ -248,6 +248,7 @@ func die() -> void:
 	_broadcast_death_event()
 
 	_alive = false
+	remove_from_group("target")
 	add_to_group("dead_body")
 
 	# stop AI movement + physics

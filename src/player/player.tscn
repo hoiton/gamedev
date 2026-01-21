@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bd0i0dpcrfguu"]
+[gd_scene load_steps=22 format=3 uid="uid://bd0i0dpcrfguu"]
 
 [ext_resource type="Script" uid="uid://ddk62bqhdvlnl" path="res://player/player.gd" id="1_rkbax"]
 [ext_resource type="Texture2D" uid="uid://cmpbckxb6ufjn" path="res://art/player/walk_down_1.png" id="3_8t03j"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://vu4efhnwe0rn" path="res://art/player/idle_up.png" id="9_g4c7l"]
 [ext_resource type="Texture2D" uid="uid://4juf2pwuje47" path="res://art/player/idle_up_2.png" id="10_knn7v"]
 [ext_resource type="Texture2D" uid="uid://bogdopfrec6al" path="res://art/player/walk_up_2.png" id="10_tqiix"]
+[ext_resource type="AudioStream" uid="uid://bo4rrxb6lboql" path="res://player/footstep.mp3" id="18_e7oew"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_yw30f"]
 animations = [{
@@ -138,3 +139,7 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeArea"]
 shape = SubResource("CircleShape2D_rkbax")
+
+[node name="Footsteps" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("18_e7oew")
+volume_db = -12.0
