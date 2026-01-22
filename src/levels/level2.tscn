@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://nuddysl5f20j"]
+[gd_scene load_steps=7 format=4 uid="uid://g6hvo3h58xc3"]
 
 [ext_resource type="TileSet" uid="uid://26hht4u25cum" path="res://art/building/tilemap.tres" id="1_p1d34"]
 [ext_resource type="PackedScene" uid="uid://bd0i0dpcrfguu" path="res://player/player.tscn" id="2_qyb5k"]
@@ -102,5 +102,5 @@ position = Vector2(1560, 698)
 door_layer = NodePath("../../Door")
 
 [node name="Exit" parent="." instance=ExtResource("4_py88r")]
-position = Vector2(544, 163)
-scale = Vector2(4.16, 1)
+position = Vector2(540, 10)
+scale = Vector2(11, 8)
