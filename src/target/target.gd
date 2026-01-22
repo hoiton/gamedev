@@ -21,17 +21,40 @@ var _patrol_wait_t := 0.0
 
 @export var is_real_target := false
 
+@export var vision_range := 300.0
+@export var vision_fov_deg := 50.0            # total cone angle
+@export var vision_check_interval := 0.08     # how often to check
+@export var vision_confirm_time := 0.25       # time needed to confirm seeing player
+@export var lose_sight_grace := 0.35          # keep "seen" for a short time after losing LOS
+@export var vision_segments := 16   # smoothness of cone
+
+@export var player_group := "player"          # or "Player" if that is your group
+
+@export var catch_distance := 18.0          # game over if guard gets this close
+@export var lose_chase_time := 1.2          # how long without LOS to stop chasing
+@export var search_after_lose := 2.5        # how long to search last seen pos
+
 var _body_scan_timer := 0.0
 var _known_bodies := {} # instance_id -> true (avoid re-reacting)
 var _current_body: Node2D = null
 
+var _last_seen_player_pos: Vector2 = Vector2.ZERO
+var _chase_los_lost_timer := 0.0
 
+var _resume_patrol := false
 
 @onready var _agent: NavigationAgent2D = $NavigationAgent2D
+@onready var _vision_cone: Polygon2D = $VisionCone/Polygon2D
 
 var _alive := true
 var _state : String = "idle"
 var _player: Node2D = null
+
+var _vision_timer := 0.0
+var _facing := Vector2.RIGHT
+var _see_timer := 0.0
+var _lose_timer := 0.0
+
 
 # Lure handling
 var _lure_check_timer := 0.0
@@ -63,6 +86,8 @@ func _ready() -> void:
 	if _patrol_points.size() > 0:
 		_state = "patrol"
 		_set_next_patrol_target()
+	
+	_build_vision_cone()
 
 
 # Helper: speed based on state
@@ -97,6 +122,13 @@ func _physics_process(delta: float) -> void:
 	if _body_scan_timer <= 0.0:
 		_body_scan_timer = body_detect_interval
 		_scan_for_dead_bodies()
+		
+	# periodic vision scan (player)
+	_vision_timer -= delta
+	if _vision_timer <= 0.0:
+		_vision_timer = vision_check_interval
+		_scan_vision_for_player(vision_check_interval)
+
 
 	match _state:
 		"idle":
@@ -115,11 +147,33 @@ func _physics_process(delta: float) -> void:
 
 		"chase":
 			if is_instance_valid(_player):
-				_agent.set_target_position(_player.global_position)
+				# 1) Caught check (close enough => game over)
+				if global_position.distance_to(_player.global_position) <= catch_distance:
+					GameManager.player_died("Caught by guard")
+					return
+
+				# 2) Check if we currently see the player (cone + LOS)
+				var sees_now := _can_see_point(_player.global_position)
+
+				if sees_now:
+					_last_seen_player_pos = _player.global_position
+					_chase_los_lost_timer = 0.0
+				else:
+					_chase_los_lost_timer += delta
+
+				# 3) Chase target: if we see them, chase them; else go to last seen spot
+				var chase_target := _player.global_position if sees_now else _last_seen_player_pos
+				_agent.set_target_position(chase_target)
 				velocity = _steer_along_path(_current_speed())
-				if _agent.is_target_reached():
-					var dir := (_player.global_position - global_position).normalized()
-					velocity = dir * chase_speed
+
+				# 4) Lose chase after enough time without LOS
+				if _chase_los_lost_timer >= lose_chase_time:
+					_search_pos = _last_seen_player_pos
+					_search_timer = search_after_lose
+					_state = "search"
+					_resume_patrol = true
+					velocity = Vector2.ZERO
+
 			else:
 				_state = "idle"
 
@@ -151,7 +205,21 @@ func _physics_process(delta: float) -> void:
 			if reached or _search_timer <= 0.0:
 				_current_body = null
 				velocity = Vector2.ZERO
-				_state = "idle"
+
+				if _resume_patrol and _patrol_points.size() > 0:
+					_resume_patrol = false
+					_state = "patrol"
+					# pick the closest patrol point so it doesn't "snap back"
+					_patrol_i = _get_closest_patrol_index()
+					_set_next_patrol_target()
+				else:
+					_resume_patrol = false
+					_state = "idle"
+
+	# Update facing direction from movement
+	if velocity.length() > 1.0:
+		_facing = velocity.normalized()
+		$VisionCone.rotation = _facing.angle()
 
 	move_and_slide()
 
@@ -195,6 +263,18 @@ func _process_lured_state(delta: float) -> void:
 			_current_lure = null
 			_state = _previous_state
 
+func _get_closest_patrol_index() -> int:
+	if _patrol_points.size() == 0:
+		return 0
+	var best_i := 0
+	var best_d := INF
+	for i in range(_patrol_points.size()):
+		var d := global_position.distance_to(_patrol_points[i])
+		if d < best_d:
+			best_d = d
+			best_i = i
+	return best_i
+
 func _on_teammate_killed(at_pos: Vector2) -> void:
 	if not _alive:
 		return
@@ -225,6 +305,19 @@ func _has_line_of_sight(from_pos: Vector2, to_pos: Vector2) -> bool:
 	var hit := space.intersect_ray(q)               # Dictionary in Godot 4
 	return hit.is_empty()                           # empty => no blocker => LOS true
 
+func _is_point_in_cone(point: Vector2) -> bool:
+	var to := point - global_position
+	var dist := to.length()
+	if dist > vision_range:
+		return false
+	if dist < 0.001:
+		return true
+
+	var dir := to / dist
+	var f := _facing.normalized()
+	var half_fov := deg_to_rad(vision_fov_deg) * 0.5
+	var angle := acos(clampf(f.dot(dir), -1.0, 1.0))
+	return angle <= half_fov
 
 func _broadcast_death_event() -> void:
 	for n in get_tree().get_nodes_in_group("target"):
@@ -259,6 +352,9 @@ func die() -> void:
 
 	if has_node("KillSound"):
 		$KillSound.play()
+		
+	if is_instance_valid(_vision_cone):
+		$VisionCone.queue_free()
 
 	# stop AI movement + physics
 	set_physics_process(false)
@@ -346,6 +442,11 @@ func _scan_for_dead_bodies() -> void:
 		if d > body_detect_radius:
 			continue
 
+		# Must be inside vision cone
+		if not _is_point_in_cone(b.global_position):
+			continue
+
+		# Must have LOS (optional)
 		if death_alert_requires_los and not _has_line_of_sight(global_position, b.global_position):
 			continue
 
@@ -363,3 +464,89 @@ func _on_dead_body_spotted(body: Node2D) -> void:
 	_search_pos = body.global_position
 	_search_timer = search_time
 	_state = "search"
+
+
+# ------------------------------------------------
+# Cone Vision
+func _scan_vision_for_player(dt: float) -> void:
+	if not _alive or _state == "lured":
+		return
+	
+	# Optional: don't see while dead / lured / etc. Adjust to taste.
+	# If you want guards to still see during patrol/search, keep as-is.
+	# Example: if _state == "lured": return
+
+	var p := _get_player()
+	if not is_instance_valid(p):
+		_reset_vision_timers(dt)
+		return
+
+	var can_see := _can_see_point(p.global_position)
+
+	if can_see:
+		_last_seen_player_pos = p.global_position
+		_lose_timer = lose_sight_grace
+		_see_timer += dt
+		if _see_timer >= vision_confirm_time:
+			_on_player_spotted(p)
+	else:
+		_reset_vision_timers(dt)
+
+func _reset_vision_timers(dt: float) -> void:
+	_see_timer = maxf(0.0, _see_timer - dt)
+
+	# grace timer counts down; during grace we keep "memory" but do not increase see timer
+	_lose_timer = maxf(0.0, _lose_timer - dt)
+
+func _get_player() -> Node2D:
+	# cache if you want, but this is simple and robust.
+	# If you already store _player somewhere else, just return that.
+	var nodes := get_tree().get_nodes_in_group(player_group)
+	if nodes.size() > 0 and nodes[0] is Node2D:
+		return nodes[0]
+	return null
+
+func _can_see_point(point: Vector2) -> bool:
+	var to := point - global_position
+	var dist := to.length()
+	if dist > vision_range:
+		return false
+	if dist < 0.001:
+		return true
+
+	# Angle check (cone)
+	var dir := to / dist
+	var f := _facing.normalized()
+	var half_fov := deg_to_rad(vision_fov_deg) * 0.5
+	var angle := acos(clampf(f.dot(dir), -1.0, 1.0))
+	if angle > half_fov:
+		return false
+
+	# Line-of-sight check using your existing ray function
+	return _has_line_of_sight(global_position, point)
+
+func _on_player_spotted(p: Node2D) -> void:
+	_player = p
+	_last_seen_player_pos = p.global_position
+	_chase_los_lost_timer = 0.0
+	_see_timer = 0.0
+	_resume_patrol = false
+
+	if _state != "chase":
+		_state = "chase"
+
+func _build_vision_cone() -> void:
+	if _vision_cone == null:
+		return
+
+	var pts: PackedVector2Array = []
+	pts.append(Vector2.ZERO)
+
+	var half := deg_to_rad(vision_fov_deg) * 0.5
+	for i in range(vision_segments + 1):
+		var t := float(i) / vision_segments
+		var ang: float = lerp(-half, half, t)
+		var p := Vector2.RIGHT.rotated(ang) * vision_range * 0.5
+		pts.append(p)
+
+	_vision_cone.polygon = pts

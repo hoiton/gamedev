@@ -92,3 +92,8 @@ shape = SubResource("RectangleShape2D_kswpl")
 [node name="KillSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_itqbd")
 volume_db = -6.0
+
+[node name="VisionCone" type="Node2D" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="VisionCone"]
+color = Color(0, 0, 0, 0.5137255)

@@ -48,7 +48,7 @@ navigation_polygon = SubResource("NavigationPolygon_5mrsh")
 position = Vector2(130, 113)
 
 [node name="Target" parent="." instance=ExtResource("4_82lur")]
-position = Vector2(483, 325)
+position = Vector2(249, 334)
 
 [node name="Guard" parent="." instance=ExtResource("4_82lur")]
 position = Vector2(381, 326)
