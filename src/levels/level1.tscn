@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=4 uid="uid://d0wivd60frsle"]
+[gd_scene load_steps=10 format=4 uid="uid://d0wivd60frsle"]
 
 [ext_resource type="TileSet" uid="uid://26hht4u25cum" path="res://art/building/tilemap.tres" id="1_kvvkh"]
 [ext_resource type="PackedScene" uid="uid://bd0i0dpcrfguu" path="res://player/player.tscn" id="2_aaqj5"]
 [ext_resource type="PackedScene" uid="uid://c0i2cgoxlhm32" path="res://environment/door.tscn" id="3_aaqj5"]
 [ext_resource type="PackedScene" uid="uid://drm6osd6bgbjr" path="res://target/target.tscn" id="4_ua5ty"]
 [ext_resource type="PackedScene" uid="uid://kal682p2xnlv" path="res://environment/exit.tscn" id="5_61w3m"]
+[ext_resource type="PackedScene" uid="uid://d3pf8bnybs22c" path="res://ui/green_gun_icon.tscn" id="6_pdpul"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ua5ty"]
 vertices = PackedVector2Array(711.40625, 202, 713.3828, 236.39063, 678, 234.42969, -3.1328125, 108, -4.8671875, -28.148438, 295.89063, -32.84375, 294.8672, 66.36719, 186.71094, 108, 411, 235.85156, 345.10156, 236.84375, 345.89844, 160, 454.20313, 160, 455.78906, 238, 422.67188, 238, 411, 287, 424.3203, 288.96094, 188.29688, 162.04688, 198, 161.20313, 297, 159.20313, 297, 268.1172, 134.32031, 270.1328, 122, 268, 508.07813, 108.11719, 345.29688, 106.11719, 346.29688, 73.34375, 347.90625, 55.117188, 967.0781, 129, 968.9219, 364, 762, 364, 762, 202, 903.3203, 129, 678, 286.70313, 711.03125, 287.70313, 711.96094, 524.96875, 346.0703, 524.02344, 666, 290.04688, -4, 268, -4, 161.04688, 762.9219, -31.953125, 967.9219, -31.039063, 967.0781, 78, 901.6719, 78, 892.3203, 77.15625, 666, 237.11719, 348.8828, -29.023438, 712, -29.96875, 712, 193.04688, 137.64063, 319.9375, 296.92188, 320.9297, 295.0703, 561.02344, -35.070313, 561.96875, -36.921875, 320.9297, 122, 319.9375, 198, 110.10156, 295.2578, 109.09375, 296.28125, 71.671875, 507.0703, 235.11719, 762.0703, 75.14844, 890.6797, 128, 763.8594, 183.32813, 347.92188, 287, 764.8281, 128)
@@ -124,3 +125,7 @@ door_layer = NodePath("../../Door")
 [node name="Exit" parent="WorldTransform" instance=ExtResource("5_61w3m")]
 position = Vector2(576, 664)
 scale = Vector2(4.16, 1)
+
+[node name="Overlay" type="CanvasLayer" parent="WorldTransform"]
+
+[node name="GreenGunIcon" parent="WorldTransform/Overlay" instance=ExtResource("6_pdpul")]

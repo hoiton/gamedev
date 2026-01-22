@@ -344,6 +344,9 @@ func die() -> void:
 		return
 
 	_broadcast_death_event()
+	
+	if not is_in_group("required_target"):
+		GameManager.lose_green_guns()
 
 	_alive = false
 	remove_from_group("target")
@@ -464,6 +467,7 @@ func _on_dead_body_spotted(body: Node2D) -> void:
 	_search_pos = body.global_position
 	_search_timer = search_time
 	_state = "search"
+	GameManager.lose_green_guns()
 
 
 # ------------------------------------------------
