@@ -11,8 +11,22 @@ extends Node2D
 @export var custom_data_open_y := "open_y"
 @export var custom_data_open_alt := "open_alt"
 
+# --- Locks / Keys ---
+# If locked, the door will only open when the player has the matching key_id.
+# Example key ids: "red", "blue", "green".
+@export var locked: bool = false
+@export var key_id: String = ""
+
+# Tint for the optional "Lock" visual node.
+@export var lock_color: Color = Color(1, 0, 0)
+
+# If a child node named "Lock" exists (Sprite2D, Node2D, etc.),
+# it will be tinted and hidden automatically.
+@export var lock_visual_path: NodePath = NodePath("Lock")
+
 @onready var area: Area2D = $Area2D
 @onready var shape_node: CollisionShape2D = $Area2D/CollisionShape2D
+@onready var lock_visual: CanvasItem = get_node_or_null(lock_visual_path) as CanvasItem
 
 var _door_cells: Array[Vector2i] = []
 var _closed_tiles: Dictionary = {} # cell -> [source_id, atlas_coords, alternative]
@@ -28,19 +42,48 @@ func _ready() -> void:
 		return
 
 	_cache_cells_inside_area()
+	_sync_lock_visual()
 
 	area.body_entered.connect(_on_enter)
 	area.body_exited.connect(_on_exit)
 
 
 func _on_enter(body: Node) -> void:
+	# Locked doors only open when the player has the matching key.
+	if locked:
+		if body.is_in_group("player") and _body_has_key(body):
+			_unlock()
+			_open()
+		return
+
 	if body.is_in_group("player") or body.is_in_group("target"):
 		_open()
 
 
 func _on_exit(body: Node) -> void:
+	if locked:
+		return
 	if body.is_in_group("player") or body.is_in_group("target"):
 		_close()
+
+
+func _body_has_key(body: Node) -> bool:
+	if key_id.strip_edges() == "":
+		return true
+	return body.has_method("has_key") and body.call("has_key", key_id)
+
+
+func _unlock() -> void:
+	locked = false
+	_sync_lock_visual()
+
+
+func _sync_lock_visual() -> void:
+	if lock_visual == null:
+		return
+	lock_visual.visible = locked
+	# If it's a Sprite2D, use modulate to tint. CanvasItem exposes modulate too.
+	lock_visual.modulate = lock_color
 
 
 func _cache_cells_inside_area() -> void:

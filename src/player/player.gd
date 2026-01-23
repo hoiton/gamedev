@@ -23,6 +23,19 @@ var _footstep_timer := 0.0
 @onready var _kill_area: Area2D = $MeleeArea
 var _enemies_in_range: Array[Node] = []
 
+# --- Keys / Locks ---
+# Doors can query this via has_key(key_id).
+var _keys: Dictionary = {} # key_id -> true
+
+func add_key(key_id: String) -> void:
+	key_id = key_id.strip_edges()
+	if key_id == "":
+		return
+	_keys[key_id] = true
+
+func has_key(key_id: String) -> bool:
+	return _keys.has(key_id.strip_edges())
+
 
 func _physics_process(delta: float) -> void:
 	# input vector
