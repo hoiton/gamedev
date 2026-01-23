@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=4 uid="uid://d0wivd60frsle"]
+[gd_scene load_steps=12 format=4 uid="uid://d0wivd60frsle"]
 
+[ext_resource type="AudioStream" uid="uid://b8oae13btldsw" path="res://levels/nu-jazz.mp3" id="1_045es"]
 [ext_resource type="TileSet" uid="uid://26hht4u25cum" path="res://art/building/tilemap.tres" id="1_kvvkh"]
 [ext_resource type="PackedScene" uid="uid://bd0i0dpcrfguu" path="res://player/player.tscn" id="2_aaqj5"]
 [ext_resource type="PackedScene" uid="uid://c0i2cgoxlhm32" path="res://environment/door.tscn" id="3_aaqj5"]
@@ -26,6 +27,12 @@ _data = {
 point_count = 24
 
 [node name="Level1" type="Node2D"]
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_045es")
+autoplay = true
+bus = &"Music"
+parameters/looping = false
 
 [node name="WorldTransform" type="Node2D" parent="."]
 position = Vector2(105, 0)
