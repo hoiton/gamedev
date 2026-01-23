@@ -1,0 +1,142 @@
+[gd_scene load_steps=2 format=3 uid="uid://124exdhga43"]
+
+[ext_resource type="Script" uid="uid://bwkg0o38nsvg4" path="res://ui/settings_menu.gd" id="1_h6jc8"]
+
+[node name="SettingsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_h6jc8")
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Margin" type="MarginContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBox" type="VBoxContainer" parent="Panel/Margin"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Panel/Margin/VBox"]
+layout_mode = 2
+text = "Settings"
+
+[node name="Tabs" type="TabContainer" parent="Panel/Margin/VBox"]
+layout_mode = 2
+current_tab = 0
+
+[node name="Audio" type="VBoxContainer" parent="Panel/Margin/VBox/Tabs"]
+layout_mode = 2
+theme_override_constants/separation = 20
+metadata/_tab_index = 0
+
+[node name="Spacer" type="Control" parent="Panel/Margin/VBox/Tabs/Audio"]
+layout_mode = 2
+
+[node name="MasterRow" type="HBoxContainer" parent="Panel/Margin/VBox/Tabs/Audio"]
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="Panel/Margin/VBox/Tabs/Audio/MasterRow"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/Margin/VBox/Tabs/Audio/MasterRow"]
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+text = "Master"
+
+[node name="HSlider" type="HSlider" parent="Panel/Margin/VBox/Tabs/Audio/MasterRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Value" type="Label" parent="Panel/Margin/VBox/Tabs/Audio/MasterRow"]
+custom_minimum_size = Vector2(1200, 0)
+layout_mode = 2
+text = "%"
+
+[node name="MusicRow" type="HBoxContainer" parent="Panel/Margin/VBox/Tabs/Audio"]
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="Panel/Margin/VBox/Tabs/Audio/MusicRow"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/Margin/VBox/Tabs/Audio/MusicRow"]
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+text = "Music"
+
+[node name="HSlider" type="HSlider" parent="Panel/Margin/VBox/Tabs/Audio/MusicRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Value" type="Label" parent="Panel/Margin/VBox/Tabs/Audio/MusicRow"]
+custom_minimum_size = Vector2(1200, 0)
+layout_mode = 2
+text = "%"
+
+[node name="SFXRow" type="HBoxContainer" parent="Panel/Margin/VBox/Tabs/Audio"]
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="Panel/Margin/VBox/Tabs/Audio/SFXRow"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/Margin/VBox/Tabs/Audio/SFXRow"]
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+text = "SFX"
+
+[node name="HSlider" type="HSlider" parent="Panel/Margin/VBox/Tabs/Audio/SFXRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Value" type="Label" parent="Panel/Margin/VBox/Tabs/Audio/SFXRow"]
+custom_minimum_size = Vector2(1200, 0)
+layout_mode = 2
+text = "%"
+
+[node name="Spacer2" type="Control" parent="Panel/Margin/VBox/Tabs/Audio"]
+layout_mode = 2
+
+[node name="Keybinds" type="VBoxContainer" parent="Panel/Margin/VBox/Tabs"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/Margin/VBox/Tabs/Keybinds"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="KeybindList" type="VBoxContainer" parent="Panel/Margin/VBox/Tabs/Keybinds/MarginContainer"]
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="Panel/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Buttons" type="HBoxContainer" parent="Panel/Margin/VBox"]
+layout_mode = 2
+
+[node name="Back" type="Button" parent="Panel/Margin/VBox/Buttons"]
+layout_mode = 2
+text = "Back"
+
+[node name="Reset" type="Button" parent="Panel/Margin/VBox/Buttons"]
+layout_mode = 2
+text = "Reset"

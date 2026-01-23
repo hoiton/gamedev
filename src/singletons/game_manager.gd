@@ -51,3 +51,6 @@ func lose_green_guns() -> void:
 	if has_green_guns:
 		has_green_guns = false
 		emit_signal("green_guns_changed", has_green_guns)
+		
+func go_to_settings() -> void:
+	get_tree().change_scene_to_file("res://ui/settings_menu.tscn")

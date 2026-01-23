@@ -92,6 +92,7 @@ shape = SubResource("RectangleShape2D_kswpl")
 [node name="KillSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_itqbd")
 volume_db = -6.0
+bus = &"SFX"
 
 [node name="VisionCone" type="Node2D" parent="."]
 

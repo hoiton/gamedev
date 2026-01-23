@@ -1,6 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://wb30h2chww3d"]
+[gd_scene load_steps=9 format=3 uid="uid://4roswmudnley"]
 
-[ext_resource type="Script" uid="uid://dp4xfm382x6fh" path="res://ui/intro.gd" id="1_m6gq7"]
+[ext_resource type="Script" path="res://ui/intro.gd" id="1_m6gq7"]
 [ext_resource type="AudioStream" uid="uid://ca0evfywt0lvk" path="res://ui/voice_lines/elevenlabs_good_morning.mp3" id="2_3tp7b"]
 [ext_resource type="AudioStream" uid="uid://uk3740aymwn6" path="res://ui/voice_lines/elevenlabs_intro_2.mp3" id="3_hivng"]
 [ext_resource type="AudioStream" uid="uid://cq6540nrb0ls2" path="res://ui/voice_lines/elevenlabs_intro_3.mp3" id="4_2uxm1"]
@@ -39,3 +39,4 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Voice" type="AudioStreamPlayer2D" parent="."]
+bus = &"SFX"

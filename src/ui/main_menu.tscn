@@ -56,5 +56,10 @@ text = "Play
 layout_mode = 2
 text = "Quit"
 
+[node name="Settings" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Settings"
+
 [connection signal="pressed" from="Panel/VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
