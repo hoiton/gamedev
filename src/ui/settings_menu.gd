@@ -2,7 +2,7 @@ extends Control
 
 @export var actions_to_show: Array[String] = [
 	"move_up", "move_down", "move_left", "move_right",
-	"kill", "throw", "lure"
+	"kill", "throw", "lure", "pause"
 ]
 
 @onready var master_slider: HSlider = $Panel/Margin/VBox/Tabs/Audio/MasterRow/HSlider
@@ -152,6 +152,7 @@ func _reset_keybinds_to_defaults() -> void:
 	_set_default_key("kill", KEY_E)
 	_set_default_key("throw", KEY_Q)
 	_set_default_key("lure", KEY_X)
+	_set_default_key("pause", KEY_ESCAPE)
 
 func _set_default_key(action_name: String, keycode: Key) -> void:
 	for e in InputMap.action_get_events(action_name):

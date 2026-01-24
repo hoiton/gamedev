@@ -1,0 +1,51 @@
+[gd_scene load_steps=2 format=3 uid="uid://dpg75k7pviuta"]
+
+[ext_resource type="Script" uid="uid://c7cqg7vupf8lc" path="res://ui/pause_menu.gd" id="1_50142"]
+
+[node name="PauseMenu" type="CanvasLayer"]
+script = ExtResource("1_50142")
+
+[node name="Root" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Center" type="CenterContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="Root/Center"]
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="Root/Center/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBox" type="VBoxContainer" parent="Root/Center/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="CenterContainer" type="CenterContainer" parent="Root/Center/Panel/Margin/VBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Root/Center/Panel/Margin/VBox/CenterContainer"]
+layout_mode = 2
+text = "Paused"
+
+[node name="Continue" type="Button" parent="Root/Center/Panel/Margin/VBox"]
+layout_mode = 2
+text = "Continue"
+
+[node name="MainMenu" type="Button" parent="Root/Center/Panel/Margin/VBox"]
+layout_mode = 2
+text = "Back to main menu"

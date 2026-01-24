@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=4 uid="uid://g6hvo3h58xc3"]
+[gd_scene load_steps=10 format=4 uid="uid://g6hvo3h58xc3"]
 
+[ext_resource type="PackedScene" uid="uid://dpg75k7pviuta" path="res://ui/pause_menu.tscn" id="1_76ugp"]
 [ext_resource type="TileSet" uid="uid://26hht4u25cum" path="res://art/building/tilemap.tres" id="1_p1d34"]
 [ext_resource type="PackedScene" uid="uid://bd0i0dpcrfguu" path="res://player/player.tscn" id="2_qyb5k"]
 [ext_resource type="PackedScene" uid="uid://drm6osd6bgbjr" path="res://target/target.tscn" id="3_g1dg4"]
@@ -19,6 +20,8 @@ _data = {
 point_count = 5
 
 [node name="Level2" type="Node2D"]
+
+[node name="PauseMenu" parent="." instance=ExtResource("1_76ugp")]
 
 [node name="WorldTransform" type="Node2D" parent="."]
 position = Vector2(39, 27)

@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=4 uid="uid://cka4boatfayh3"]
+[gd_scene load_steps=10 format=4 uid="uid://cka4boatfayh3"]
 
+[ext_resource type="PackedScene" uid="uid://dpg75k7pviuta" path="res://ui/pause_menu.tscn" id="1_1xfnq"]
 [ext_resource type="TileSet" uid="uid://26hht4u25cum" path="res://art/building/tilemap.tres" id="1_cpie4"]
 [ext_resource type="PackedScene" uid="uid://bd0i0dpcrfguu" path="res://player/player.tscn" id="2_udvx3"]
 [ext_resource type="PackedScene" uid="uid://drm6osd6bgbjr" path="res://target/target.tscn" id="3_1xfnq"]
@@ -19,6 +20,8 @@ _data = {
 point_count = 5
 
 [node name="Level3" type="Node2D"]
+
+[node name="PauseMenu" parent="." instance=ExtResource("1_1xfnq")]
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 position = Vector2(46, 73)

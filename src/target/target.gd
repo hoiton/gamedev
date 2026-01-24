@@ -535,6 +535,7 @@ func _on_player_spotted(p: Node2D) -> void:
 	_chase_los_lost_timer = 0.0
 	_see_timer = 0.0
 	_resume_patrol = false
+	GameManager.lose_green_guns()
 
 	if _state != "chase":
 		_state = "chase"
