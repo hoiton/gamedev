@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://d0wivd60frsle"]
+[gd_scene load_steps=15 format=4 uid="uid://d0wivd60frsle"]
 
 [ext_resource type="AudioStream" uid="uid://b8oae13btldsw" path="res://levels/nu-jazz.mp3" id="1_045es"]
 [ext_resource type="TileSet" uid="uid://26hht4u25cum" path="res://art/building/tilemap.tres" id="1_kvvkh"]
@@ -26,6 +26,18 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 2, 3, 0, 0, 0, 0, -33, 61, 0, 0, 0, 0, -27, 142, 0, 0, 0, 0, 225, 130, -2, 111, 2, -111, 226, 36, 0, 0, 0, 0, -74, -107, 0, 0, 0, 0, -202, -104, 0, 0, 0, 0, -251, -86, 0, 0, 0, 0, -253, 7, 0, 0, 0, 0, -445, -9, 0, 0, 0, 0, -255, 1, 0, 0, 0, 0, -248, -78, 0, 0, 0, 0, -171, -111, 0, 0, 0, 0, -44, -110, 0, 0, 0, 0, 177, -93, 0, 0, 0, 0, 238, 21, 0, 0, 0, 0, 333, 25, 0, 0, 0, 0, 518, 184, 0, 0, 0, 0, 328, 21, 0, 0, 0, 0, 232, 21, 0, 0, 0, 0, 225, 137, 0, 0, 0, 0, -31, 145, 0, 0, 0, 0, -29, 59, 0, 0, 0, 0, 2, 3)
 }
 point_count = 24
+
+[sub_resource type="Curve2D" id="Curve2D_omn1t"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1.2388916, 1.2388916, 0, 0, 0, 0, 1.8583374, 181.49753, 0, 0, 0, 0, -327.68658, 177.1614, 0, 0, 0, 0, -324.3352, 89.13092, 0, 0, 0, 0, 1.2388916, 92.91681, 0, 0, 0, 0, -0.6194458, -0.6194458, 0, 0, 0, 0, -322.73105, 0, 0, 0, 0, 0, -325.2088, 87.96124, 0, 0, 0, 0, -322.73105, -0.6194458, 0, 0, 0, 0, 0, 0)
+}
+point_count = 10
+
+[sub_resource type="Curve2D" id="Curve2D_lf3p4"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0.6194458, 1.2388916, 0, 0, 0, 0, 180.87811, 166.63083, 0, 0, 0, 0, 0, 0)
+}
+point_count = 3
 
 [node name="Level1" type="Node2D"]
 
@@ -57,14 +69,16 @@ tile_map_data = PackedByteArray("AAAAAAAAAAABAAIAAAAAAAEAAAAFAAEAAAAAAAIAAAAFAAE
 tile_set = ExtResource("1_kvvkh")
 
 [node name="Player" parent="WorldTransform" instance=ExtResource("2_aaqj5")]
-position = Vector2(182.11694, 532.723)
+position = Vector2(133.20943, 527.2615)
 
 [node name="Targets" type="Node" parent="WorldTransform"]
 
 [node name="Target1" parent="WorldTransform/Targets" node_paths=PackedStringArray("patrol_path") instance=ExtResource("4_ua5ty")]
 position = Vector2(596, 703)
 scale = Vector2(1.6143473, 1.6143473)
+patrol_speed = 60.0
 patrol_path = NodePath("Patrol Path")
+vision_fov_deg = 90.0
 
 [node name="Patrol Path" type="Path2D" parent="WorldTransform/Targets/Target1"]
 position = Vector2(-293, -427)
@@ -73,7 +87,9 @@ curve = SubResource("Curve2D_61w3m")
 [node name="Target2" parent="WorldTransform/Targets" node_paths=PackedStringArray("patrol_path") instance=ExtResource("4_ua5ty")]
 position = Vector2(893, 396)
 scale = Vector2(1.6143473, 1.6143473)
+patrol_speed = 60.0
 patrol_path = NodePath("Patrol Path")
+vision_fov_deg = 90.0
 
 [node name="Patrol Path" type="Path2D" parent="WorldTransform/Targets/Target2"]
 curve = SubResource("Curve2D_pdpul")
@@ -82,6 +98,26 @@ curve = SubResource("Curve2D_pdpul")
 position = Vector2(1587, 144)
 scale = Vector2(1.6143473, 1.6143473)
 is_real_target = true
+
+[node name="Target4" parent="WorldTransform/Targets" node_paths=PackedStringArray("patrol_path") instance=ExtResource("4_ua5ty")]
+position = Vector2(1290, 650)
+scale = Vector2(1.6143473, 1.6143473)
+patrol_speed = 50.0
+patrol_path = NodePath("Path2D")
+vision_fov_deg = 90.0
+
+[node name="Path2D" type="Path2D" parent="WorldTransform/Targets/Target4"]
+curve = SubResource("Curve2D_omn1t")
+
+[node name="Target5" parent="WorldTransform/Targets" node_paths=PackedStringArray("patrol_path") instance=ExtResource("4_ua5ty")]
+position = Vector2(1439, 351)
+scale = Vector2(1.6143473, 1.6143473)
+patrol_path = NodePath("Path2D")
+vision_range = 200.0
+vision_fov_deg = 359.0
+
+[node name="Path2D" type="Path2D" parent="WorldTransform/Targets/Target5"]
+curve = SubResource("Curve2D_lf3p4")
 
 [node name="Wall_front" type="TileMapLayer" parent="WorldTransform"]
 tile_map_data = PackedByteArray("AAAYAAgAAAACAAQAAAALAAQAAAACAAQAAAA=")
@@ -108,6 +144,7 @@ door_layer = NodePath("../../Door")
 position = Vector2(1265, 541)
 scale = Vector2(1.6143473, 1.6143473)
 door_layer = NodePath("../../Door")
+lock_color = Color(1.6364455e-06, 0.8081867, 1.540184e-06, 1)
 
 [node name="Door4" parent="WorldTransform/Doors" node_paths=PackedStringArray("door_layer") instance=ExtResource("3_aaqj5")]
 position = Vector2(854, 543)
@@ -118,6 +155,9 @@ door_layer = NodePath("../../Door")
 position = Vector2(386, 592)
 scale = Vector2(1.6143473, 1.6143473)
 door_layer = NodePath("../../Door")
+locked = true
+key_id = "green"
+lock_color = Color(1.0348111e-06, 0.72033894, 1.540184e-06, 1)
 
 [node name="Door6" parent="WorldTransform/Doors" node_paths=PackedStringArray("door_layer") instance=ExtResource("3_aaqj5")]
 position = Vector2(491, 337)
@@ -135,6 +175,9 @@ key_id = "red"
 position = Vector2(1629, 287)
 scale = Vector2(1.6143473, 1.6143473)
 door_layer = NodePath("../../Door")
+locked = true
+key_id = "blue"
+lock_color = Color(0, 0.5451935, 0.9369953, 1)
 
 [node name="Exit" parent="WorldTransform" instance=ExtResource("5_61w3m")]
 position = Vector2(576, 664)
@@ -144,9 +187,23 @@ scale = Vector2(4.16, 1)
 
 [node name="GreenGunIcon" parent="WorldTransform/Overlay" instance=ExtResource("6_pdpul")]
 
-[node name="Node" type="Node" parent="WorldTransform"]
+[node name="Keys" type="Node" parent="WorldTransform"]
 
-[node name="Key" parent="WorldTransform/Node" instance=ExtResource("7_8hd6v")]
-position = Vector2(1283, 107)
+[node name="Key" parent="WorldTransform/Keys" instance=ExtResource("7_8hd6v")]
+position = Vector2(1712, 95)
 collision_layer = 1
 collision_mask = 1
+
+[node name="Key2" parent="WorldTransform/Keys" instance=ExtResource("7_8hd6v")]
+position = Vector2(765, 397)
+collision_layer = 1
+collision_mask = 1
+key_id = "blue"
+key_color = Color(3.85046e-07, 0.560516, 0.88064355, 1)
+
+[node name="Key3" parent="WorldTransform/Keys" instance=ExtResource("7_8hd6v")]
+position = Vector2(97, 1007)
+collision_layer = 1
+collision_mask = 1
+key_id = "green"
+key_color = Color(0, 0.66749895, 1.347661e-06, 1)

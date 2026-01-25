@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://g6hvo3h58xc3"]
+[gd_scene load_steps=15 format=4 uid="uid://g6hvo3h58xc3"]
 
 [ext_resource type="PackedScene" uid="uid://dpg75k7pviuta" path="res://ui/pause_menu.tscn" id="1_76ugp"]
 [ext_resource type="TileSet" uid="uid://26hht4u25cum" path="res://art/building/tilemap.tres" id="1_p1d34"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c0i2cgoxlhm32" path="res://environment/door.tscn" id="3_qyb5k"]
 [ext_resource type="PackedScene" uid="uid://kal682p2xnlv" path="res://environment/exit.tscn" id="4_py88r"]
 [ext_resource type="PackedScene" uid="uid://d3pf8bnybs22c" path="res://ui/green_gun_icon.tscn" id="6_s1bpp"]
+[ext_resource type="PackedScene" uid="uid://d0n0l5y0xwq2k" path="res://environment/key.tscn" id="8_e8p81"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_g1dg4"]
 vertices = PackedVector2Array(999.0469, 416.90625, 999.9375, 589.90625, 794.6094, 588.09375, 796.6172, 555, 798.0703, 542.3906, 197.6875, 332, 198.67969, 364.95313, -7.890625, 364.03906, -6.1015625, 192.07813, 195.75, 321.28906, 999, -30.078125, 999, 140.03906, 794.27344, 140.95313, 795.27344, 103, 797, 94, 644.1328, -84.03125, 646.85156, 108.84375, 517.7031, 106.84375, 347.03906, -84.96094, 347.95313, 108.14844, 476.3125, 110.15625, 519.28906, 161, 474.6875, 162.07813, 996.10156, 193.03906, 997.8906, 364, 795.2969, 364, 796.28125, 330.6172, 798, 316.85938, 517.6875, 802.0781, 645.8672, 801.0703, 644.1094, 949.0625, 347.1172, 950.9297, 348.8828, 802, 477, 802, 1503.1563, 316.9297, 1499.1875, 99, 1734.0313, 99, 1735.9688, 685, 1501, 685, 1501, 620, 1501.0781, 603.71094, 797.0703, 415.09375, 746.1094, 545.6406, 744, 555, 251, 88.75781, 251, -32.84375, 295.02344, -32.148438, 296.02344, 445.0078, 700, 440.07813, 700, -30.84375, 744.75, -30.148438, 741.7578, 94, 198.75781, 193.89844, 252.10156, 319.71875, 250.95313, 332, -3.1015625, 417.85938, 198, 415.1328, 198, 546.6094, -4.890625, 589, 200, 589, 200, 551.6797, 252.04688, 543.4297, 252.03906, 553.3125, 1242.1406, 363.07813, 1245.8594, 97.859375, 1446.0391, 95.13281, 1447.0469, 323.17188, 1446, 331, 797, -31.898438, 745, 103, 745, 323.28906, 743.8906, 327.35156, 1446, 364.89844, 1498.9219, 331, 200, 101.953125, 200, 139.90625, -4.890625, 138.07813, -3.1015625, -31.039063, 199.14844, -31.953125, 201.17969, 95.39844, 249.90625, 106.9375, 296, 460, 519.2969, 749, 347.96875, 460, 347, 440.07813, 347, 161.07031, 647.03125, 461, 646.03125, 749, 1052, 127, 1192.9297, 127, 1190.9297, 414.92188, 1052, 761.15625, 1000, 777.6719, 1000, 876.9297, 699.96875, 875.0625, 744, 638.9219, 997.90625, 765.9297, -3.0390625, 878, -3.9609375, 642, 199.04688, 642, 200.0625, 834.65625, 200, 844, 998.90625, 640.9219, 296, 877, 252, 877, 252, 844, 200, 878, 250.96094, 831.3828, 1446, 736.96875, 1739, 737.96094, 1739, 848.0078, 1052.7188, 848.97656, 1050.7266, 779.3125, 477, 750.0781, 648.03906, 161, 649.03906, 445.0078, 798, 193.95313, 698.97656, 461, 1447, 416.92188, 1447, 605.2969, 1446, 620, 348.96094, 749.0703)
@@ -18,6 +19,30 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 304, 430, 0, 0, 0, 0, 305, 624, 0, 0, 0, 0, 45, 622, 0, 0, 0, 0, 46, 430, 0, 0, 0, 0, 303, 430)
 }
 point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_55gdq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -2, 3, 0, 0, 0, 0, 11, 549, 0, 0, 0, 0, -254, 552, 0, 0, 0, 0, -253, -4, 0, 0, 0, 0, -2, -2)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_crte6"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1, 1, 0, 0, 0, 0, 4, 847, 0, 0, 0, 0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_hq01p"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1, 4, 0, 0, 0, 0, 0, 655, 0, 0, 0, 0, 1, 5)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_fjysh"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -3, 3, 0, 0, 0, 0, -173, 205, 0, 0, 0, 0, -3, 6)
+}
+point_count = 3
 
 [node name="Level2" type="Node2D"]
 
@@ -53,6 +78,39 @@ patrol_path = NodePath("Patrol Path")
 position = Vector2(-293, -427)
 curve = SubResource("Curve2D_61w3m")
 
+[node name="Target2" parent="WorldTransform/Targets" node_paths=PackedStringArray("patrol_path") instance=ExtResource("3_g1dg4")]
+position = Vector2(1431, 280)
+patrol_path = NodePath("")
+is_real_target = true
+
+[node name="Target3" parent="WorldTransform/Targets" node_paths=PackedStringArray("patrol_path") instance=ExtResource("3_g1dg4")]
+position = Vector2(699, 285)
+patrol_path = NodePath("Path2D")
+
+[node name="Path2D" type="Path2D" parent="WorldTransform/Targets/Target3"]
+curve = SubResource("Curve2D_55gdq")
+
+[node name="Target4" parent="WorldTransform/Targets" node_paths=PackedStringArray("patrol_path") instance=ExtResource("3_g1dg4")]
+position = Vector2(358, 91)
+patrol_path = NodePath("Path2D")
+
+[node name="Path2D" type="Path2D" parent="WorldTransform/Targets/Target4"]
+curve = SubResource("Curve2D_crte6")
+
+[node name="Target5" parent="WorldTransform/Targets" node_paths=PackedStringArray("patrol_path") instance=ExtResource("3_g1dg4")]
+position = Vector2(808, 87)
+patrol_path = NodePath("Path2D")
+
+[node name="Path2D" type="Path2D" parent="WorldTransform/Targets/Target5"]
+curve = SubResource("Curve2D_hq01p")
+
+[node name="Target6" parent="WorldTransform/Targets" node_paths=PackedStringArray("patrol_path") instance=ExtResource("3_g1dg4")]
+position = Vector2(267, 761)
+patrol_path = NodePath("Path2D")
+
+[node name="Path2D" type="Path2D" parent="WorldTransform/Targets/Target6"]
+curve = SubResource("Curve2D_fjysh")
+
 [node name="Wall_front" type="TileMapLayer" parent="WorldTransform"]
 tile_map_data = PackedByteArray("AAAIABMAAAACAAQAAAAIAAwAAAACAAQAAAAIAAUAAAACAAQAAAAIABwAAAACAAQAAAAZABMAAAACAAQAAAAZAAwAAAACAAQAAAAZAAUAAAACAAQAAAAhABoAAAAGAAQAAAALABAAAAACAAQAAAAWABAAAAACAAQAAAAvABUAAAAHAAQAAAAvAAwAAAACAAQAAAA=")
 tile_set = ExtResource("1_p1d34")
@@ -75,6 +133,9 @@ door_layer = NodePath("../../Door")
 [node name="Door3" parent="WorldTransform/Doors" node_paths=PackedStringArray("door_layer") instance=ExtResource("3_qyb5k")]
 position = Vector2(312, 922)
 door_layer = NodePath("../../Door")
+locked = true
+key_id = "white"
+lock_color = Color(1, 1, 1, 1)
 
 [node name="Door4" parent="WorldTransform/Doors" node_paths=PackedStringArray("door_layer") instance=ExtResource("3_qyb5k")]
 position = Vector2(311, 635)
@@ -83,10 +144,16 @@ door_layer = NodePath("../../Door")
 [node name="Door5" parent="WorldTransform/Doors" node_paths=PackedStringArray("door_layer") instance=ExtResource("3_qyb5k")]
 position = Vector2(312, 411)
 door_layer = NodePath("../../Door")
+locked = true
+key_id = "blue"
+lock_color = Color(0, 0.5478699, 0.9276161, 1)
 
 [node name="Door6" parent="WorldTransform/Doors" node_paths=PackedStringArray("door_layer") instance=ExtResource("3_qyb5k")]
 position = Vector2(311, 188)
 door_layer = NodePath("../../Door")
+locked = true
+key_id = "pink"
+lock_color = Color(0.83294034, 0.0013158948, 0.9351045, 1)
 
 [node name="Door7" parent="WorldTransform/Doors" node_paths=PackedStringArray("door_layer") instance=ExtResource("3_qyb5k")]
 position = Vector2(855, 409)
@@ -99,22 +166,40 @@ door_layer = NodePath("../../Door")
 [node name="Door9" parent="WorldTransform/Doors" node_paths=PackedStringArray("door_layer") instance=ExtResource("3_qyb5k")]
 position = Vector2(855, 187)
 door_layer = NodePath("../../Door")
+locked = true
+key_id = "purple"
+lock_color = Color(0.41324046, 0.26762176, 1, 1)
 
 [node name="Door10" parent="WorldTransform/Doors" node_paths=PackedStringArray("door_layer") instance=ExtResource("3_qyb5k")]
 position = Vector2(760, 538)
 door_layer = NodePath("../../Door")
+locked = true
+key_id = "green"
+lock_color = Color(0, 0.78361595, 3.85046e-07, 1)
 
 [node name="Door11" parent="WorldTransform/Doors" node_paths=PackedStringArray("door_layer") instance=ExtResource("3_qyb5k")]
 position = Vector2(582, 234)
 door_layer = NodePath("../../Door")
+locked = true
+key_id = "orange"
+lock_color = Color(0.79607844, 0.41960785, 0, 1)
 
 [node name="Door12" parent="WorldTransform/Doors" node_paths=PackedStringArray("door_layer") instance=ExtResource("3_qyb5k")]
 position = Vector2(1560, 411)
 door_layer = NodePath("../../Door")
+locked = true
+key_id = "black"
+lock_color = Color(0, 0, 0, 1)
 
 [node name="Door13" parent="WorldTransform/Doors" node_paths=PackedStringArray("door_layer") instance=ExtResource("3_qyb5k")]
 position = Vector2(1560, 698)
 door_layer = NodePath("../../Door")
+
+[node name="Door14" parent="WorldTransform/Doors" node_paths=PackedStringArray("door_layer") instance=ExtResource("3_qyb5k")]
+position = Vector2(1112, 857)
+door_layer = NodePath("../../Door")
+locked = true
+key_id = "red"
 
 [node name="Exit" parent="WorldTransform" instance=ExtResource("4_py88r")]
 position = Vector2(540, 10)
@@ -123,3 +208,59 @@ scale = Vector2(11, 8)
 [node name="Overlay" type="CanvasLayer" parent="WorldTransform"]
 
 [node name="GreenGunIcon" parent="WorldTransform/Overlay" instance=ExtResource("6_s1bpp")]
+
+[node name="Keys" type="Node" parent="WorldTransform"]
+
+[node name="Key" parent="WorldTransform/Keys" instance=ExtResource("8_e8p81")]
+position = Vector2(100, 87)
+collision_layer = 1
+collision_mask = 1
+
+[node name="Key2" parent="WorldTransform/Keys" instance=ExtResource("8_e8p81")]
+position = Vector2(100, 314)
+collision_layer = 1
+collision_mask = 1
+key_id = "green"
+key_color = Color(0, 0.73971456, 1.92523e-07, 1)
+
+[node name="Key3" parent="WorldTransform/Keys" instance=ExtResource("8_e8p81")]
+position = Vector2(99, 533)
+collision_layer = 1
+collision_mask = 1
+key_id = "blue"
+key_color = Color(0, 0.56889397, 0.8467852, 1)
+
+[node name="Key4" parent="WorldTransform/Keys" instance=ExtResource("8_e8p81")]
+position = Vector2(1061, 91)
+collision_layer = 1
+collision_mask = 1
+key_id = "white"
+key_color = Color(1, 1, 1, 1)
+
+[node name="Key5" parent="WorldTransform/Keys" instance=ExtResource("8_e8p81")]
+position = Vector2(1063, 310)
+collision_layer = 1
+collision_mask = 1
+key_id = "orange"
+key_color = Color(0.8627451, 0.4509804, 0.015686275, 1)
+
+[node name="Key6" parent="WorldTransform/Keys" instance=ExtResource("8_e8p81")]
+position = Vector2(1065, 535)
+collision_layer = 1
+collision_mask = 1
+key_id = "pink"
+key_color = Color(0.8945552, 0.00020157159, 0.77606386, 1)
+
+[node name="Key7" parent="WorldTransform/Keys" instance=ExtResource("8_e8p81")]
+position = Vector2(99, 760)
+collision_layer = 1
+collision_mask = 1
+key_id = "black"
+key_color = Color(0, 0, 0, 1)
+
+[node name="Key8" parent="WorldTransform/Keys" instance=ExtResource("8_e8p81")]
+position = Vector2(1756, 904)
+collision_layer = 1
+collision_mask = 1
+key_id = "purple"
+key_color = Color(0.42090997, 0.19856057, 0.99999994, 1)
