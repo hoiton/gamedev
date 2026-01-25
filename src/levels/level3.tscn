@@ -156,14 +156,14 @@ curve = SubResource("Curve2D_mf7v1")
 
 [node name="Target10" parent="Targets" node_paths=PackedStringArray("patrol_path") instance=ExtResource("3_1xfnq")]
 position = Vector2(75, 89)
-patrol_path = NodePath("")
+patrol_path = NodePath("Path2D")
 
 [node name="Path2D" type="Path2D" parent="Targets/Target10"]
 curve = SubResource("Curve2D_7trqu")
 
 [node name="Target11" parent="Targets" node_paths=PackedStringArray("patrol_path") instance=ExtResource("3_1xfnq")]
 position = Vector2(763, 837)
-patrol_path = NodePath("")
+patrol_path = NodePath("Path2D")
 
 [node name="Path2D" type="Path2D" parent="Targets/Target11"]
 curve = SubResource("Curve2D_o0ax4")
