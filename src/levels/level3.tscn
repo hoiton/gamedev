@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://cka4boatfayh3"]
+[gd_scene load_steps=19 format=4 uid="uid://cka4boatfayh3"]
 
 [ext_resource type="PackedScene" uid="uid://dpg75k7pviuta" path="res://ui/pause_menu.tscn" id="1_1xfnq"]
 [ext_resource type="TileSet" uid="uid://26hht4u25cum" path="res://art/building/tilemap.tres" id="1_cpie4"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c0i2cgoxlhm32" path="res://environment/door.tscn" id="4_6uckl"]
 [ext_resource type="PackedScene" uid="uid://kal682p2xnlv" path="res://environment/exit.tscn" id="5_d6jip"]
 [ext_resource type="PackedScene" uid="uid://d3pf8bnybs22c" path="res://ui/green_gun_icon.tscn" id="6_udvx3"]
+[ext_resource type="PackedScene" uid="uid://d0n0l5y0xwq2k" path="res://environment/key.tscn" id="8_6uckl"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_cpie4"]
 vertices = PackedVector2Array(317, 619.3906, 703, 612.03125, 741.53125, 612, 1021.97656, 612, 1003.96875, 682.9922, 317, 683.97656, 1147.9766, 834, 1214, 355.15625, 1223, 355, 1597.7266, 355, 1559.9219, 492, 1542, 526.5625, 1708.0703, 300, 1607, 300, 1599.2813, 299, 1093.8984, 225.96875, 1830, 227.96875, 1020.89844, 873, 1020.9297, 868, 1022.02344, 716.5078, 1094, 333.42188, 1094.7813, 834, 1094.7891, 841.60156, 1021.89844, 972, 319.02344, 105.5, 390, 76.390625, 390, 504.4375, 387, 504.28906, 1023.0078, 73.24219, 1094.0781, -29, 1095.0781, 98, 1095.1016, 104, 1003.6406, 40.96875, -1.078125, -29, 710, 42.46875, 315.96875, 513.9219, 387, 610.96875, 1607, 354, 738.4375, 555, 703, 552.96094, 710, 101.078125, 71.25, 644.3203, 102.03906, 643.3203, 103.03906, 866, 1214, 299, 1223, 299, 1830.9531, 171, 1149.1484, 171, 1150.1484, 104, 1830.0469, -29, 1150.8438, -29, 1148.8438, 98, 1148.9688, 354.14844, 126.1875, 74.546875, -1.90625, 74.96094, 408.1172, 44.03125, 165.78906, 74.40625, -1.109375, 587, -1.890625, 515, 156.46094, 515, 61, 587, 262, 131.89063, 262, 459.89063, 167, 458.89063, 167.25, 130.89844, 446.03906, 553.96094, 447.95313, 99.09375, 671, 101.09375, -1, 459, -1, 130.07813, 124.75, 131.07813, 159.57031, 459, 966, 99.07031, 966, 555, 671, 42.679688, 1843.9297, 866, 1843.0703, 984.85156, 1725.9219, 983.1406, 1799.2891, 866, 1725.0703, 866, 1790, 866, 1797.7031, 812, 1790, 811, 1670.0625, 354, 1670.9375, 492, 1542, 770, 1149, 839.6328, -2.0234375, 971.0078, -2.96875, 642, 61, 642, 477, 771, 477, 738.0078, 965.14844, 738.97656, 967.14844, 868, 1094.9922, 972, 477.14063, 866, 967, 873, 967, 971.97656, 1830, 812, 1726, 747.3906, 1707.8594, 715, 1725, 546, 1726, 811, 1597, 715, 1597, 546, 1725, 332.5625, 1113.1172, 299, 423, 776.2969, 423, 812, 157, 812, 262, 737.9375, 422, 771, 157, 643, 262, 643, 1671, 770, 1671, 972, 1149, 972, 422, 738.9297, 475.85938, 774.7031, 69.828125, 587, 298.85938, 587, 167, 515.0781, 301.95313, 73.97656)
@@ -21,7 +22,7 @@ point_count = 5
 
 [sub_resource type="Curve2D" id="Curve2D_1xfnq"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 1, 3, 0, 0, 0, 0, 11, 643, 0, 0, 0, 0, -692, 650, 0, 0, 0, 0, -686, -11, 0, 0, 0, 0, -1, 1)
+"points": PackedVector2Array(0, 0, 0, 0, 1, 3, 0, 0, 0, 0, 11, 643, 0, 0, 0, 0, -667, 653, 0, 0, 0, 0, -661, -12, 0, 0, 0, 0, -1, 1)
 }
 point_count = 5
 
@@ -52,6 +53,18 @@ point_count = 3
 [sub_resource type="Curve2D" id="Curve2D_mf7v1"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 38, 5, 0, 0, 0, 0, 0, 5)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_7trqu"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 2, 5, 0, 0, 0, 0, 309.0558, 12.570343, 0, 0, 0, 0, 296, 536, 0, 0, 0, 0, 6.918747, 534.3224, 0, 0, 0, 0, 296, 538, 0, 0, 0, 0, 308, 11, 0, 0, 0, 0, 3, 6)
+}
+point_count = 7
+
+[sub_resource type="Curve2D" id="Curve2D_o0ax4"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, -2, 192, 0, 0, 0, 0, -1, 2)
 }
 point_count = 3
 
@@ -141,6 +154,20 @@ patrol_path = NodePath("Path2D")
 [node name="Path2D" type="Path2D" parent="Targets/Target9"]
 curve = SubResource("Curve2D_mf7v1")
 
+[node name="Target10" parent="Targets" node_paths=PackedStringArray("patrol_path") instance=ExtResource("3_1xfnq")]
+position = Vector2(75, 89)
+patrol_path = NodePath("")
+
+[node name="Path2D" type="Path2D" parent="Targets/Target10"]
+curve = SubResource("Curve2D_7trqu")
+
+[node name="Target11" parent="Targets" node_paths=PackedStringArray("patrol_path") instance=ExtResource("3_1xfnq")]
+position = Vector2(763, 837)
+patrol_path = NodePath("")
+
+[node name="Path2D" type="Path2D" parent="Targets/Target11"]
+curve = SubResource("Curve2D_o0ax4")
+
 [node name="Wall_front" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAAgAB0AAAACAAQAAAAkABwAAAACAAQAAAAkAAUAAAACAAQAAAAPABoAAAACAAQAAAA=")
 tile_set = ExtResource("1_cpie4")
@@ -163,30 +190,50 @@ door_layer = NodePath("../../Door")
 [node name="Door3" parent="Doors" node_paths=PackedStringArray("door_layer") instance=ExtResource("4_6uckl")]
 position = Vector2(1263, 399)
 door_layer = NodePath("../../Door")
+locked = true
+key_id = "green"
+lock_color = Color(1.0107458e-06, 0.76671284, 0.17415679, 1)
 
 [node name="Door4" parent="Doors" node_paths=PackedStringArray("door_layer") instance=ExtResource("4_6uckl")]
 position = Vector2(1650, 402)
 door_layer = NodePath("../../Door")
+locked = true
+key_id = "green"
+lock_color = Color(5.4387747e-06, 0.72352326, 0.29233694, 1)
 
 [node name="Door5" parent="Doors" node_paths=PackedStringArray("door_layer") instance=ExtResource("4_6uckl")]
 position = Vector2(1170, 158)
 door_layer = NodePath("../../Door")
+locked = true
+key_id = "red"
 
 [node name="Door6" parent="Doors" node_paths=PackedStringArray("door_layer") instance=ExtResource("4_6uckl")]
 position = Vector2(736, 142)
 door_layer = NodePath("../../Door")
+locked = true
+key_id = "blue"
+lock_color = Color(0, 0.53603005, 0.9677847, 1)
 
 [node name="Door7" parent="Doors" node_paths=PackedStringArray("door_layer") instance=ExtResource("4_6uckl")]
 position = Vector2(768, 655)
 door_layer = NodePath("../../Door")
+locked = true
+key_id = "blue"
+lock_color = Color(0, 0.54536307, 0.93640655, 1)
 
 [node name="Door8" parent="Doors" node_paths=PackedStringArray("door_layer") instance=ExtResource("4_6uckl")]
 position = Vector2(209, 558)
 door_layer = NodePath("../../Door")
+locked = true
+key_id = "black"
+lock_color = Color(0, 0, 0, 1)
 
 [node name="Door9" parent="Doors" node_paths=PackedStringArray("door_layer") instance=ExtResource("4_6uckl")]
 position = Vector2(192, 176)
 door_layer = NodePath("../../Door")
+locked = true
+key_id = "black"
+lock_color = Color(0, 0, 0, 1)
 
 [node name="Door10" parent="Doors" node_paths=PackedStringArray("door_layer") instance=ExtResource("4_6uckl")]
 position = Vector2(111, 689)
@@ -195,6 +242,9 @@ door_layer = NodePath("../../Door")
 [node name="Door11" parent="Doors" node_paths=PackedStringArray("door_layer") instance=ExtResource("4_6uckl")]
 position = Vector2(497, 832)
 door_layer = NodePath("../../Door")
+locked = true
+key_id = "pink"
+lock_color = Color(0.80319166, 0.0023997992, 0.9965777, 1)
 
 [node name="Door12" parent="Doors" node_paths=PackedStringArray("door_layer") instance=ExtResource("4_6uckl")]
 position = Vector2(1042, 928)
@@ -207,3 +257,38 @@ scale = Vector2(4.16, 1)
 [node name="Overlay" type="CanvasLayer" parent="."]
 
 [node name="GreenGunIcon" parent="Overlay" instance=ExtResource("6_udvx3")]
+
+[node name="Keys" type="Node" parent="."]
+
+[node name="Key" parent="Keys" instance=ExtResource("8_6uckl")]
+position = Vector2(1797, 143)
+collision_layer = 1
+collision_mask = 1
+key_id = "black"
+key_color = Color(0, 0, 0, 1)
+
+[node name="Key2" parent="Keys" instance=ExtResource("8_6uckl")]
+position = Vector2(743, 396)
+collision_layer = 1
+collision_mask = 1
+
+[node name="Key3" parent="Keys" instance=ExtResource("8_6uckl")]
+position = Vector2(255, 773)
+collision_layer = 1
+collision_mask = 1
+key_id = "blue"
+key_color = Color(0, 0.55651987, 0.8959883, 1)
+
+[node name="Key4" parent="Keys" instance=ExtResource("8_6uckl")]
+position = Vector2(1496, 723)
+collision_layer = 1
+collision_mask = 1
+key_id = "pink"
+key_color = Color(0.7987577, 0.024675095, 0.99999994, 1)
+
+[node name="Key5" parent="Keys" instance=ExtResource("8_6uckl")]
+position = Vector2(1667, 767)
+collision_layer = 1
+collision_mask = 1
+key_id = "green"
+key_color = Color(0, 0.8131165, 0, 1)
