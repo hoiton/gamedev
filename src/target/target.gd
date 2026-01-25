@@ -21,7 +21,7 @@ var _patrol_wait_t := 0.0
 
 @export var is_real_target := false
 
-@export var vision_range := 300.0
+@export var vision_range := 200.0
 @export var vision_fov_deg := 50.0            # total cone angle
 @export var vision_check_interval := 0.08     # how often to check
 @export var vision_confirm_time := 0.25       # time needed to confirm seeing player
@@ -511,14 +511,16 @@ func _get_player() -> Node2D:
 	return null
 
 func _can_see_point(point: Vector2) -> bool:
+	var world_scale := _vision_world_scale()
+	var actual_range := vision_range * world_scale
+	
 	var to := point - global_position
 	var dist := to.length()
-	if dist > vision_range:
+	if dist > actual_range:
 		return false
 	if dist < 0.001:
 		return true
 
-	# Angle check (cone)
 	var dir := to / dist
 	var f := _facing.normalized()
 	var half_fov := deg_to_rad(vision_fov_deg) * 0.5
@@ -526,8 +528,12 @@ func _can_see_point(point: Vector2) -> bool:
 	if angle > half_fov:
 		return false
 
-	# Line-of-sight check using your existing ray function
 	return _has_line_of_sight(global_position, point)
+
+func _vision_world_scale() -> float:
+	# If you scale the whole level uniformly, X and Y should be the same.
+	# Use the node that is actually scaled (VisionCone or self).
+	return global_transform.get_scale().x
 
 func _on_player_spotted(p: Node2D) -> void:
 	_player = p
@@ -551,7 +557,7 @@ func _build_vision_cone() -> void:
 	for i in range(vision_segments + 1):
 		var t := float(i) / vision_segments
 		var ang: float = lerp(-half, half, t)
-		var p := Vector2.RIGHT.rotated(ang) * vision_range * 0.5
+		var p := Vector2.RIGHT.rotated(ang) * vision_range
 		pts.append(p)
 
 	_vision_cone.polygon = pts
