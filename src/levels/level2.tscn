@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=4 uid="uid://g6hvo3h58xc3"]
+[gd_scene load_steps=16 format=4 uid="uid://g6hvo3h58xc3"]
 
 [ext_resource type="PackedScene" uid="uid://dpg75k7pviuta" path="res://ui/pause_menu.tscn" id="1_76ugp"]
 [ext_resource type="TileSet" uid="uid://26hht4u25cum" path="res://art/building/tilemap.tres" id="1_p1d34"]
+[ext_resource type="AudioStream" uid="uid://j3fkatc0mohr" path="res://levels/stealth.mp3" id="2_55gdq"]
 [ext_resource type="PackedScene" uid="uid://bd0i0dpcrfguu" path="res://player/player.tscn" id="2_qyb5k"]
 [ext_resource type="PackedScene" uid="uid://drm6osd6bgbjr" path="res://target/target.tscn" id="3_g1dg4"]
 [ext_resource type="PackedScene" uid="uid://c0i2cgoxlhm32" path="res://environment/door.tscn" id="3_qyb5k"]
@@ -48,6 +49,13 @@ point_count = 3
 
 [node name="PauseMenu" parent="." instance=ExtResource("1_76ugp")]
 
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
+stream = ExtResource("2_55gdq")
+autoplay = true
+bus = &"Music"
+parameters/looping = false
+
 [node name="WorldTransform" type="Node2D" parent="."]
 position = Vector2(39, 27)
 
@@ -78,9 +86,8 @@ patrol_path = NodePath("Patrol Path")
 position = Vector2(-293, -427)
 curve = SubResource("Curve2D_61w3m")
 
-[node name="Target2" parent="WorldTransform/Targets" node_paths=PackedStringArray("patrol_path") instance=ExtResource("3_g1dg4")]
+[node name="Target2" parent="WorldTransform/Targets" instance=ExtResource("3_g1dg4")]
 position = Vector2(1431, 280)
-patrol_path = NodePath("")
 is_real_target = true
 
 [node name="Target3" parent="WorldTransform/Targets" node_paths=PackedStringArray("patrol_path") instance=ExtResource("3_g1dg4")]
