@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <defs>
+    <style>
+      .stroke { stroke:#111; stroke-width:14; stroke-linecap:round; stroke-linejoin:round; fill:none; }
+      .fill { fill:#111; }
+      .accent { fill:#2ecc71; }
+    </style>
+  </defs>
+
+  <!-- Outer crosshair ring -->
+  <circle class="stroke" cx="128" cy="128" r="90"/>
+
+  <!-- Crosshair ticks -->
+  <line class="stroke" x1="128" y1="18"  x2="128" y2="46"/>
+  <line class="stroke" x1="128" y1="210" x2="128" y2="238"/>
+  <line class="stroke" x1="18"  y1="128" x2="46"  y2="128"/>
+  <line class="stroke" x1="210" y1="128" x2="238" y2="128"/>
+
+  <!-- Inner dot -->
+  <circle class="fill" cx="128" cy="128" r="10"/>
+
+  <!-- Tie (simple geometric) -->
+  <path class="fill" d="M128 92
+                        C112 92 104 104 104 116
+                        C104 136 118 150 128 162
+                        C138 150 152 136 152 116
+                        C152 104 144 92 128 92 Z"/>
+
+  <path class="fill" d="M128 164
+                        L108 206
+                        L128 238
+                        L148 206 Z"/>
+
+  <!-- Small accent badge (optional flair) -->
+  <circle class="accent" cx="186" cy="186" r="14"/>
+</svg>
