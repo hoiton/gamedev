@@ -30,9 +30,12 @@ var _patrol_wait_t := 0.0
 
 @export var player_group := "player"          # or "Player" if that is your group
 
-@export var catch_distance := 18.0          # game over if guard gets this close
+@export var catch_distance := 30.0          # game over if guard gets this close
 @export var lose_chase_time := 1.2          # how long without LOS to stop chasing
 @export var search_after_lose := 2.5        # how long to search last seen pos
+
+@export var cone_ray_start_offset := 2.0
+
 
 var _body_scan_timer := 0.0
 var _known_bodies := {} # instance_id -> true (avoid re-reacting)
@@ -87,7 +90,7 @@ func _ready() -> void:
 		_state = "patrol"
 		_set_next_patrol_target()
 	
-	_build_vision_cone()
+	#_build_vision_cone()
 
 
 # Helper: speed based on state
@@ -220,6 +223,8 @@ func _physics_process(delta: float) -> void:
 	if velocity.length() > 1.0:
 		_facing = velocity.normalized()
 		$VisionCone.rotation = _facing.angle()
+		_update_vision_cone_clipped()
+
 
 	move_and_slide()
 
@@ -545,6 +550,50 @@ func _on_player_spotted(p: Node2D) -> void:
 
 	if _state != "chase":
 		_state = "chase"
+
+func _update_vision_cone_clipped() -> void:
+	if _vision_cone == null:
+		return
+
+	var space := get_world_2d().direct_space_state
+	var pts: PackedVector2Array = []
+	pts.append(Vector2.ZERO)
+
+	var half := deg_to_rad(vision_fov_deg) * 0.5
+	var origin := global_position
+	var facing_angle := _facing.angle()
+
+	for i in range(vision_segments + 1):
+		var t := float(i) / vision_segments
+		var ang : float = lerp(-half, half, t) + facing_angle
+		var dir := Vector2.RIGHT.rotated(ang)
+
+		var start := origin + dir * cone_ray_start_offset
+		var world_range := vision_range * _vision_world_scale()
+		var end := origin + dir * world_range
+
+		var q := PhysicsRayQueryParameters2D.create(start, end)
+		q.collision_mask = los_collision_mask
+		q.exclude = [self]
+		q.collide_with_bodies = true
+		q.collide_with_areas = false
+
+		var hit := space.intersect_ray(q)
+
+		var world_point := end
+		if not hit.is_empty():
+			world_point = hit.position
+
+		# Polygon2D points are in LOCAL space of the Polygon2D's parent.
+		# If Polygon2D is under VisionCone which is under the NPC, to_local() is correct:
+		pts.append($VisionCone.to_local(world_point))
+
+		# If your Polygon2D is not directly under the NPC, use:
+		# pts.append(_vision_cone.get_parent().to_local(world_point))
+		# or simply: pts.append($VisionCone.to_local(world_point))
+
+	_vision_cone.polygon = pts
+
 
 func _build_vision_cone() -> void:
 	if _vision_cone == null:
