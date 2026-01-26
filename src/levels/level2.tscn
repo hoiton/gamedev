@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://g6hvo3h58xc3"]
+[gd_scene load_steps=17 format=4 uid="uid://g6hvo3h58xc3"]
 
 [ext_resource type="PackedScene" uid="uid://dpg75k7pviuta" path="res://ui/pause_menu.tscn" id="1_76ugp"]
 [ext_resource type="TileSet" uid="uid://26hht4u25cum" path="res://art/building/tilemap.tres" id="1_p1d34"]
@@ -45,6 +45,12 @@ _data = {
 }
 point_count = 3
 
+[sub_resource type="Curve2D" id="Curve2D_bcewn"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -3, 0, 0, 0, 0, 0, 11, 413, 0, 0, 0, 0, 85, 509, 0, 0, 0, 0, 253.98682, 392.01794, 0, 0, 0, 0, 499.61682, 401.69794, 0, 0, 0, 0, 590.3668, 324.25793, 0, 0, 0, 0, 581, -18, 0, 0, 0, 0, 460.89673, -64.15207, 0, 0, 0, 0, 404.02673, -0.022064209, 0, 0, 0, 0, 408, 398, 0, 0, 0, 0, 182.5968, 390.80798, 0, 0, 0, 0, 29, 213, 0, 0, 0, 0, 37, 4, 0, 0, 0, 0, -3, 1)
+}
+point_count = 14
+
 [node name="Level2" type="Node2D"]
 
 [node name="PauseMenu" parent="." instance=ExtResource("1_76ugp")]
@@ -80,7 +86,9 @@ position = Vector2(544, 939)
 
 [node name="Target1" parent="WorldTransform/Targets" node_paths=PackedStringArray("patrol_path") instance=ExtResource("3_g1dg4")]
 position = Vector2(1051, 768)
+patrol_speed = 70.0
 patrol_path = NodePath("Patrol Path")
+vision_range = 300.0
 
 [node name="Patrol Path" type="Path2D" parent="WorldTransform/Targets/Target1"]
 position = Vector2(-293, -427)
@@ -93,30 +101,46 @@ is_real_target = true
 [node name="Target3" parent="WorldTransform/Targets" node_paths=PackedStringArray("patrol_path") instance=ExtResource("3_g1dg4")]
 position = Vector2(699, 285)
 patrol_path = NodePath("Path2D")
+vision_fov_deg = 90.0
 
 [node name="Path2D" type="Path2D" parent="WorldTransform/Targets/Target3"]
 curve = SubResource("Curve2D_55gdq")
 
 [node name="Target4" parent="WorldTransform/Targets" node_paths=PackedStringArray("patrol_path") instance=ExtResource("3_g1dg4")]
 position = Vector2(358, 91)
+patrol_speed = 60.0
 patrol_path = NodePath("Path2D")
+vision_range = 300.0
+vision_fov_deg = 40.0
 
 [node name="Path2D" type="Path2D" parent="WorldTransform/Targets/Target4"]
 curve = SubResource("Curve2D_crte6")
 
 [node name="Target5" parent="WorldTransform/Targets" node_paths=PackedStringArray("patrol_path") instance=ExtResource("3_g1dg4")]
 position = Vector2(808, 87)
+patrol_speed = 120.0
 patrol_path = NodePath("Path2D")
+vision_fov_deg = 40.0
 
 [node name="Path2D" type="Path2D" parent="WorldTransform/Targets/Target5"]
 curve = SubResource("Curve2D_hq01p")
 
 [node name="Target6" parent="WorldTransform/Targets" node_paths=PackedStringArray("patrol_path") instance=ExtResource("3_g1dg4")]
 position = Vector2(267, 761)
+patrol_speed = 30.0
 patrol_path = NodePath("Path2D")
+vision_fov_deg = 120.0
 
 [node name="Path2D" type="Path2D" parent="WorldTransform/Targets/Target6"]
 curve = SubResource("Curve2D_fjysh")
+
+[node name="Target7" parent="WorldTransform/Targets" node_paths=PackedStringArray("patrol_path") instance=ExtResource("3_g1dg4")]
+position = Vector2(1201, 315)
+patrol_speed = 80.0
+patrol_path = NodePath("Path2D")
+
+[node name="Path2D" type="Path2D" parent="WorldTransform/Targets/Target7"]
+curve = SubResource("Curve2D_bcewn")
 
 [node name="Wall_front" type="TileMapLayer" parent="WorldTransform"]
 tile_map_data = PackedByteArray("AAAIABMAAAACAAQAAAAIAAwAAAACAAQAAAAIAAUAAAACAAQAAAAIABwAAAACAAQAAAAZABMAAAACAAQAAAAZAAwAAAACAAQAAAAZAAUAAAACAAQAAAAhABoAAAAGAAQAAAALABAAAAACAAQAAAAWABAAAAACAAQAAAAvABUAAAAHAAQAAAAvAAwAAAACAAQAAAA=")
