@@ -45,6 +45,9 @@ func level_completed() -> void:
 	get_tree().change_scene_to_file("res://ui/level_complete.tscn")
 
 func retry_level() -> void:
+	if current_level == first_level_path:
+		has_green_guns = true
+
 	start_game()
 
 func lose_green_guns() -> void:
